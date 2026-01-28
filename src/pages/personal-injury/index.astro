@@ -1,0 +1,229 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Personal Injury | ImmediateLawyerHelp.com">
+  <!-- Hero (same theme as homepage) -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
+        <h1>Personal Injury</h1>
+        <p class="heroSub">
+          Common types of injury cases are listed below. If you’re not sure which fits, describe what happened and continue.
+        </p>
+
+        <!-- Keep the same IDs so homepage behavior continues to work -->
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe what happened…"
+            aria-label="Describe what happened"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Fast</span><span class="sep">•</span>
+          <span>Confidential</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article body -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <div class="piArticle">
+          <h2 class="cardTitle">Types of personal injury cases</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width: 78ch;">
+            Personal injury cases often involve physical harm, medical expenses, and time away from work.
+            These matters can also involve insurance claims, evidence collection, and deadlines that vary by state.
+            The sections below describe common situations and link to dedicated pages (coming soon).
+          </p>
+
+          <div style="height:1px; background: rgba(255,255,255,.08); margin: 16px 0;"></div>
+
+          <section class="piSection" id="car-accident">
+            <h3 class="piH"><a href="/personal-injury/car-accident/" class="piTitleLink">Car Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="Car Accident Injury" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Injuries from collisions involving passenger vehicles, including rear-end crashes, intersection accidents, and hit-and-run incidents.
+              These cases often involve questions about fault, insurance coverage, and documentation like photos, medical records, and crash reports.
+              Even when injuries seem minor at first, symptoms can develop over days or weeks.
+            </p>
+            <a class="piLearn" href="/personal-injury/car-accident/">Learn more →</a>
+</section>
+
+          <section class="piSection" id="truck-accident">
+            <h3 class="piH"><a href="/personal-injury/truck-accident/" class="piTitleLink">Truck Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60" alt="Truck Accident Injury" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Accidents involving commercial trucks or tractor-trailers, often with serious injuries due to size and weight differences.
+              These matters can involve multiple responsible parties, such as drivers, trucking companies, maintenance providers, or cargo handlers.
+              Records like driver logs, inspection reports, and onboard data can be important in understanding what happened.
+            </p>
+            <a class="piLearn" href="/personal-injury/truck-accident/">Learn more →</a>
+</section>
+
+          <section class="piSection" id="motorcycle-accident">
+            <h3 class="piH"><a href="/personal-injury/motorcycle-accident/" class="piTitleLink">Motorcycle Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="Motorcyle Accident Injury" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Crashes involving motorcycles, including situations where riders are struck by vehicles or injured by road hazards.
+              Because riders have less protection, injuries can be severe even at lower speeds.
+              Claims may turn on visibility, right-of-way, and whether road conditions or defective parts played a role.
+            </p>
+            <a class="piLearn" href="/personal-injury/motorcycle-accident/">Learn more →</a>
+</section>
+
+          <section class="piSection" id="bicycle-accident">
+            <h3 class="piH"><a href="/personal-injury/bicycle-accident/" class="piTitleLink">Bicycle Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf" alt="Bicycle Accident Injury" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Injuries while cycling, commonly involving motor vehicles, unsafe road conditions, or failure to yield.
+              These incidents may happen in bike lanes, at intersections, or when doors open into a rider’s path.
+              Useful details can include the exact location, traffic controls, witness information, and medical documentation.
+            </p>
+            <a class="piLearn" href="/personal-injury/bicycle-accident/">Learn more →</a>
+</section>
+
+          <section class="piSection" id="pedestrian-accident">
+            <h3 class="piH"><a href="/personal-injury/pedestrian-accident/" class="piTitleLink">Pedestrian Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1520975916090-3105956dac38" alt="Pedestrian Accident" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Cases where a pedestrian is injured by a vehicle, frequently occurring at crosswalks, intersections, or parking areas.
+              Liability can depend on signals, right-of-way, visibility, and driver attention, as well as the pedestrian’s position and movement.
+              Prompt medical care and clear documentation of the scene can matter in evaluating next steps.
+            </p>
+            <a class="piLearn" href="/personal-injury/pedestrian-accident/">Learn more →</a>
+</section>
+
+          <section class="piSection" id="slip-and-fall">
+            <h3 class="piH"><a href="/personal-injury/slip-and-fall/" class="piTitleLink">Slip &amp; Fall</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952" alt="Slip and Fall Accident" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Injuries caused by hazardous property conditions such as wet floors, uneven surfaces, poor lighting, or missing warnings.
+              These cases often focus on whether the property owner knew (or should have known) about the condition and had time to address it.
+              Photos, incident reports, and witness statements can help clarify how the hazard appeared and how long it was present.
+            </p>
+            <a class="piLearn" href="/personal-injury/slip-and-fall/">Learn more →</a>
+</section>
+
+          <section class="piSection" id="dog-bite">
+            <h3 class="piH"><a href="/personal-injury/dog-bite/" class="piTitleLink">Dog Bite / Animal Attack</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d" alt="Dog Bite Accident" loading="lazy" /></div>
+            <p class="guideMeta piBlurb">
+              Injuries resulting from dog bites or animal attacks, including situations involving negligent owners or unsecured animals.
+              Issues can include local rules, prior incidents, leash requirements, and whether the animal was properly contained.
+              Medical records, photographs of injuries, and documentation of the animal and owner can be relevant when exploring options.
+            </p>
+            <a class="piLearn" href="/personal-injury/dog-bite/">Learn more →</a>
+</section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep the same side form block style (and IDs) so existing scripts remain compatible -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width: 72ch;">
+          Describe what happened and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe what happened…" aria-label="Describe what happened" />
+          <button type="submit" aria-label="Get Started">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Page-specific: article-style layout with restrained images */
+    .piArticle .piSection{
+      padding: 18px 0 34px !important;
+      border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    }
+    .piArticle .piSection:first-of-type{
+      padding-top: 10px !important;
+    }
+    .piArticle .piSection:last-of-type{
+      border-bottom: 0 !important;
+      padding-bottom: 10px !important;
+    }
+
+    .piArticle .piH{
+      margin: 0 !important;
+      font-size: 18px !important;
+      letter-spacing: -0.01em;
+    }
+    .piArticle .piTitleLink{
+      text-decoration: none;
+    }
+    .piArticle .piTitleLink:hover{
+      text-decoration: underline;
+    }
+
+    /* Key change: images no longer span full width */
+    .piArticle .piImage{
+      margin: 12px 0 18px !important;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .piArticle .piImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+
+    @media (max-width: 900px){
+      .piArticle .piImage{
+        max-width: 100%;
+      }
+    }
+
+    .piArticle .piBlurb{
+      margin-top: 10px !important;
+      line-height: 1.7 !important;
+      max-width: 78ch;
+    }
+
+    .piArticle .piLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px !important;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .piArticle .piLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
+</SiteLayout>

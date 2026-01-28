@@ -1,0 +1,188 @@
+<section class="ctaBand">
+    <div class="container ctaBandInner">
+      <div>
+        <div class="ctaBandTitle">Get started now</div>
+        <div class="ctaBandSub">Tell us what you need help with, and we’ll route you to the right attorney type.</div>
+      </div>
+      <a class="btn btnLarge" href="#heroSearchForm">Start</a>
+    </div>
+  </section>
+
+  <!-- Footer (fatter like first image) -->
+  <footer class="footer">
+    <div class="container footerTop">
+      <div class="footerBrand">
+        <div class="footerLogo">ImmediateLawyerHelp<span>.com</span></div>
+        <div class="footerDesc">
+          Legal connection service. Not a law firm. No attorney-client relationship is formed by using this website.
+        </div>
+      </div>
+
+      <div class="footerCols">
+        <div class="footerCol">
+          <div class="footerTitle">Categories</div>
+          <a href="/personal-injury/">Personal Injury</a>
+          <a href="/criminal-traffic/">Criminal / Traffic</a>
+          <a href="/family-law/">Family Law</a>
+          <a href="/employment-law/">Employment</a>
+          <a href="/immigration/">Immigration</a>
+          <a href="/landlord-tenant/">Landlord / Tenant</a>
+        </div>
+
+        <div class="footerCol">
+          <div class="footerTitle">More areas</div>
+          <a href="/estate/">Estate</a>
+          <a href="/business-financial/">Business & Financial</a>
+          <a href="/bankruptcy/">Bankruptcy</a>
+          <a href="/tax/">Tax</a>
+          <a href="/mass-tort/">Mass Tort</a>
+          <a href="/civil-lawsuit/">Civil Lawsuit</a>
+        </div>
+
+        <div class="footerCol">
+          <div class="footerTitle">Company</div>
+          <a href="/about.html">About</a>
+          <a href="/how-it-works.html">How it works</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/for-attorneys.html">For Attorneys</a>
+          <a href="/guides/">Legal guides</a>
+        </div>
+
+        <div class="footerCol">
+          <div class="footerTitle">Legal</div>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/disclaimer.html">Disclaimer</a>
+          <a href="/do-not-sell.html">Do Not Sell/Share</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footerBottom">
+      <div>© <span id="year"></span> ImmediateLawyerHelp.com</div>
+      <div class="footerBottomLinks">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Skeleton behavior: redirect to your intake/form with ?area=...
+    // For now we simply slugify the input; later you can map this to practiceAreaKey selections.
+    function slugify(s) {
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/['"]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 80);
+    }
+
+    function handleSearchSubmit(e) {
+      e.preventDefault();
+      const input = e.target.querySelector("input");
+      const q = input ? input.value : "";
+      const area = slugify(q) || "general";
+      // Replace with your real intake URL
+      const intakeBase = "https://legalform.pages.dev/";
+      window.location.href = intakeBase + "?area=" + encodeURIComponent(area);
+    }
+
+    document.getElementById("heroSearchForm")?.addEventListener("submit", handleSearchSubmit);
+    document.getElementById("sideSearchForm")?.addEventListener("submit", handleSearchSubmit);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script>
+(() => {
+  const rail = document.querySelector(".categoryRail");
+  if (!rail) return;
+
+  // Respect reduced-motion
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (reduceMotion) return;
+
+  rail.classList.add("isAuto");
+let isPaused = false;
+let last = performance.now();
+let carry = 0;                // <-- accumulates fractional pixels
+const pxPerSec = 30;          // you can go low now
+
+function step(now) {
+  const dt = (now - last) / 1000;
+  last = now;
+
+  if (!isPaused) {
+    const maxScroll = rail.scrollWidth - rail.clientWidth;
+
+    carry += pxPerSec * dt;
+    const dx = Math.floor(carry);   // only apply whole pixels
+    if (dx >= 1) {
+      rail.scrollLeft += dx;
+      carry -= dx;
+    }
+
+    if (rail.scrollLeft >= maxScroll - 2) {
+      rail.scrollLeft = 0;
+      carry = 0;
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+  requestAnimationFrame(step);
+
+  function pause() {
+    isPaused = true;
+    rail.classList.remove("isAuto"); // allow snap while user interacts
+  }
+  function resume() {
+    isPaused = false;
+    rail.classList.add("isAuto");    // disable snap for autoplay
+  }
+
+  rail.addEventListener("mouseenter", pause);
+  rail.addEventListener("mouseleave", resume);
+  rail.addEventListener("touchstart", pause, { passive: true });
+  rail.addEventListener("touchend", resume, { passive: true });
+
+  let wheelTimer = null;
+  rail.addEventListener("wheel", () => {
+    pause();
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(resume, 900);
+  }, { passive: true });
+})();
+</script>
+
+  <script>
+  const heroImages = [
+    "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2000&q=60",
+    "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=60",
+    "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=2000&q=60"
+  ];
+
+  let heroIndex = 0;
+  const heroBg = document.querySelector(".heroBg");
+
+  function rotateHeroImage() {
+    heroIndex = (heroIndex + 1) % heroImages.length;
+
+    heroBg.classList.add("fade");
+
+    setTimeout(() => {
+      heroBg.style.backgroundImage = `
+        linear-gradient(180deg, rgba(17,34,52,.55), rgba(17,34,52,.15)),
+        linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,0)),
+        url("${heroImages[heroIndex]}")
+      `;
+      heroBg.classList.remove("fade");
+    }, 600);
+  }
+
+  setInterval(rotateHeroImage, 15000);
+</script>

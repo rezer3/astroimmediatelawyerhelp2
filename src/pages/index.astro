@@ -1,0 +1,211 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="ImmediateLawyerHelp.com">
+<!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+    <div class="container heroInner">
+      <div class="heroCard">
+        <h1>Get Connected with an Experienced Attorney</h1>
+        <p class="heroSub">
+            A legal connection service that routes you to independent attorneys based on your needs.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="What legal issue do you need help with?"
+            aria-label="Describe your legal issue"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Fast</span><span class="sep">•</span>
+          <span>Confidential</span><span class="sep">•</span>
+          <span>No cost to begin</span>
+        </div>
+
+       </div>
+    </div>
+  </section>
+
+  <!-- Category tiles -->
+  <section class="section sectionTight">
+    <div class="containerFluid">
+      <h2 class="sectionTitle">Browse by Category</h2>
+
+     <div class="categoryRail" aria-label="Practice areas">
+  <a class="catCard" href="/personal-injury/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Personal Injury</div>
+      <div class="catDesc">Accidents, injuries, medical claims, and time-sensitive next steps.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/criminal-traffic/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1453873531674-2151bcd01707?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Criminal / Traffic</div>
+      <div class="catDesc">DUI, tickets, suspended license, warrants, and court deadlines.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/family-law/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Family Law</div>
+      <div class="catDesc">Divorce, custody, support, protective orders, and parenting plans.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/employment-law/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Employment Law</div>
+      <div class="catDesc">Wrongful termination, discrimination, unpaid wages, and retaliation.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/immigration/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Immigration</div>
+      <div class="catDesc">Visas, green cards, asylum, and removal defense guidance.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/landlord-tenant/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Landlord / Tenant</div>
+      <div class="catDesc">Evictions, habitability, deposits, leases, and housing disputes.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/estate/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Estate</div>
+      <div class="catDesc">Wills, trusts, probate, guardianship, and elder-related matters.</div>
+    </div>
+  </a>
+
+  <a class="catCard" href="/business-financial/">
+    <div class="catImg" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=60');"></div>
+    <div class="catBody">
+      <div class="catTitle">Business & Financial</div>
+      <div class="catDesc">Contracts, disputes, debt, collections, and bankruptcy options.</div>
+    </div>
+  </a>
+</div>
+    </div>
+  </section>
+
+  <!-- How it works + trust panel (matches “more going on” look) -->
+  <section id="how-it-works" class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">How it works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="stepNum">1</div>
+            <div>
+              <div class="stepTitle">Tell us what’s going on</div>
+              <div class="stepDesc">Answer a few quick questions to identify the right practice area.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="stepNum">2</div>
+            <div>
+              <div class="stepTitle">We route you to a lawyer</div>
+              <div class="stepDesc">We connect you with an attorney suited to your situation.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="stepNum">3</div>
+            <div>
+              <div class="stepTitle">Get legal help</div>
+              <div class="stepDesc">Speak with a lawyer and decide next steps.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card trustCard">
+        <h2 class="cardTitle">Trust & confidentiality</h2>
+        <ul class="bullets">
+          <li>We connect you with qualified, local attorneys.</li>
+          <li>Fast routing and private intake.</li>
+          <li>Start at no cost (where available).</li>
+        </ul>
+        <div class="miniNote">
+          This site provides information and connecting services — not legal advice.
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Guides + testimonials + side CTA -->
+  <section id="guides" class="section sectionAlt">
+    <div class="container threeCol">
+      <div class="card">
+        <h2 class="cardTitle">Latest legal guides</h2>
+        <p class="muted">These will later auto-populate from your practice-area pages.</p>
+
+        <div class="guideList">
+          <a class="guideItem" href="/guides/steps-after-car-accident.html">
+            <div class="guideTitle">Steps to take after a car accident</div>
+            <div class="guideMeta">Personal Injury • 6 min read</div>
+          </a>
+          <a class="guideItem" href="/guides/what-to-do-after-dui.html">
+            <div class="guideTitle">What to do after receiving a DUI</div>
+            <div class="guideMeta">Criminal / Traffic • 5 min read</div>
+          </a>
+          <a class="guideItem" href="/guides/custody-basics.html">
+            <div class="guideTitle">Child custody basics: what matters</div>
+            <div class="guideMeta">Family Law • 7 min read</div>
+          </a>
+        </div>
+
+        <a class="textLink" href="/guides/">View all guides →</a>
+      </div>
+
+      <div class="card">
+        <h2 class="cardTitle">Featured</h2>
+        <div class="featuredMedia" aria-hidden="true"></div>
+        <div class="featuredTitle">Steps to take after a car accident</div>
+        <div class="muted">A quick checklist for what to document and what to avoid.</div>
+        <div class="btnRow">
+          <a class="btn" href="/guides/steps-after-car-accident.html">Read guide</a>
+          <a class="btn btnGhost" href="#heroSearchForm">Start intake</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="cardTitle">Client testimonials</h2>
+        <blockquote class="quote">
+          “I didn’t know where to turn. The process was straightforward and I got connected fast.”
+          <footer>— Lisa M.</footer>
+        </blockquote>
+
+        <div class="sideCta">
+          <div class="sideCtaTitle">Need legal help? Start here.</div>
+          <form id="sideSearchForm" class="sideSearch">
+            <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+            <button type="submit" aria-label="Search">→</button>
+          </form>
+          <div class="muted small">
+            Or call <a href="tel:+18001234567">1-800-123-4567</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA band -->
+</SiteLayout>
