@@ -11,7 +11,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           Get routed to an attorney for audits, tax debt, liens/levies, and complex IRS matters.
         </p>
 
-        <form class="searchRow" action="/legalform/" method="get">
+       <form id="taxSearch" class="searchRow" action="/legalform/" method="get">
           <input
             name="q"
             type="text"
@@ -37,7 +37,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
         <article class="featureCard">
           <div class="media" aria-hidden="true"></div>
           <div class="body">
-            <h2>Individual tax matters</h2>
+            <h2>Individual Tax Matters</h2>
             <p class="muted">Common reasons people reach out for help.</p>
             <ul class="checkList">
               <li>IRS Audits &amp; Examinations</li>
@@ -50,7 +50,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
         <article class="featureCard">
           <div class="media alt" aria-hidden="true"></div>
           <div class="body">
-            <h2>Business tax matters</h2>
+            <h2>Business Tax Matters</h2>
             <p class="muted">Guidance for companies and owners.</p>
             <ul class="checkList">
               <li>Unified Tax Returns</li>
@@ -63,7 +63,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
      <div class="ctaStrip infoBlock centered withImage right">
         <div class="text">
-          <h3>Why tax issues often get worse over time</h3>
+          <h3>Why Tax Issues Often Get Worse over Time</h3>
           <p class="muted">
             Many tax problems don’t resolve on their own. Penalties, interest, and enforcement actions can continue even
             when you’re actively trying to fix the issue. Missing deadlines or responding incorrectly to IRS notices can
@@ -76,7 +76,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
       <div class="ctaStrip infoBlock centered withImage left">
         <div class="text">
-          <h3>How a tax attorney can help</h3>
+          <h3>How A Tax Attorney Can Help</h3>
           <ul class="bulletList">
             <li>Communicating with the IRS or state tax authorities</li>
             <li>Reviewing notices, audits, and prior filings</li>
@@ -90,7 +90,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
       <div class="ctaStrip infoBlock centered">
         <div>
-          <h3>Common situations people reach out about</h3>
+          <h3>Common Situations People Reach Out About</h3>
           <ul class="bulletList">
             <li>Receiving an IRS audit or examination notice</li>
             <li>Owing back taxes from prior years</li>
@@ -105,9 +105,21 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
         </div>
       </div>
 
+    <div class="ctaStrip ctaJump">
+      <div class="ctaJumpInner">
+        <div>
+          <h3>Not seeing your exact situation?</h3>
+          <p class="muted">
+            Describe what’s going on and we’ll route you to the appropriate type of tax attorney.
+          </p>
+        </div>
+        <a href="/legalform/" class="ctaBtn">Start Here</a>
+      </div>
+    </div>
+
       <div class="ctaStrip infoBlock centered">
         <div>
-          <h3>What to expect when you get started</h3>
+          <h3>What To Expect When You Get Started</h3>
           <p class="muted">
             You’ll answer a few questions about your situation so we can identify the appropriate type of tax attorney.
             There’s no obligation to move forward, and no cost to begin.
@@ -120,20 +132,23 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
       <div class="ctaStrip infoBlock centered">
         <div>
-          <h3>Frequently asked questions</h3>
+          <h3>Frequently Asked Questions</h3>
 
-          <details class="qa">
+        <details class="qa">
   <summary class="q">Do I need a tax attorney or a CPA?</summary>
-  <div class="a muted">
-    Tax attorneys focus on legal rights, disputes, and representation in tax matters. A CPA may handle
-              preparation and accounting, but may not represent you in all disputes.
+  <div class="answerWrap">
+    <div class="a muted">
+      Tax attorneys focus on legal rights, disputes, and representation in tax matters. A CPA may handle preparation and accounting, but may not represent you in all disputes.
+    </div>
   </div>
 </details>
 
           <details class="qa">
   <summary class="q">Can someone help if I already owe money?</summary>
-  <div class="a muted">
+  <div class="answerWrap">
+    <div class="a muted">
     Yes. Owing back taxes is one of the most common reasons people seek legal guidance.
+  </div>
   </div>
 </details>
         </div>
@@ -144,7 +159,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           <h3>Not sure what category fits?</h3>
           <p class="muted">Describe what’s happening and we’ll route you to the right attorney type.</p>
         </div>
-        <a class="ctaBtn" href="/legalform/">Start</a>
+       <a href="/legalform/" class="ctaBtn ctaBtn--secondary">Start</a>
       </div>
     </div>
   </section>
@@ -186,17 +201,26 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
       background: white;
     }
     .searchRow input:focus{ border-color: rgba(24, 90, 220, .35); box-shadow: 0 0 0 4px rgba(24, 90, 220, .12); }
-    .searchRow button{
-      height: 46px;
-      padding: 0 18px;
-      border-radius: 12px;
-      border: 0;
-      background: linear-gradient(180deg, #2b66ff, #1748d8);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 20px rgba(23, 72, 216, .22);
-    }
+  .searchRow button,
+.ctaBtn{
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 0;
+  background: linear-gradient(180deg, #2b66ff, #1748d8);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(23, 72, 216, .22);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ctaBtn--secondary{
+  background: #0b1b35;
+  box-shadow: 0 8px 18px rgba(11, 27, 53, .35);
+}
     .heroMeta{
       display: flex;
       flex-wrap: wrap;
@@ -279,21 +303,64 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
     }
     .ctaStrip h3{ margin: 0 0 4px; font-size: 18px; }
     .ctaStrip p{ margin: 0; }
-    .ctaBtn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 42px;
-      padding: 0 16px;
-      border-radius: 12px;
-      background: #0b1b35;
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-      white-space: nowrap;
-    }
+    
+.ctaJump{
+  background: linear-gradient(
+    180deg,
+    rgba(12,42,92,.06),
+    rgba(12,42,92,.02)
+  );
+  border: 1px solid rgba(0,0,0,.08);
+}
 
+.ctaJumpInner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+/* force layout control for jump CTA */
+.ctaJump{
+  display: block; /* override any inherited flex/grid */
+}
 
+.ctaJumpInner{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* THIS is the important line */
+.ctaJumpInner .ctaBtn{
+  margin-left: auto;
+}
+@media (max-width: 768px){
+  .ctaJumpInner{
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@media (min-width: 769px){
+  .ctaJumpInner{
+    text-align: left;
+  }
+
+  .ctaJumpInner .ctaBtn{
+    margin-left: auto;
+  }
+}
+@media (max-width: 768px){
+  .ctaJumpInner{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .ctaJumpInner .ctaBtn{
+    margin-left: 0;
+    align-self: center;
+  }
+}
 .taxExplain{ margin-top: 18px; }
 
     @media (max-width: 900px){
@@ -333,7 +400,86 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
     }
     details[open].qa .q::after{ transform: rotate(180deg) translateY(1px); }
     .qa .a{ margin-top: 10px; }
+.qa{
+  margin-top: 12px;
+  border-top: 1px solid rgba(0,0,0,.08);
+  padding-top: 12px;
+  overflow: hidden;
+}
 
+.qa:first-of-type{
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* summary */
+.qa > .q{
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  user-select: none;
+}
+
+.qa > .q::-webkit-details-marker{
+  display: none;
+}
+
+.qa > .q::after{
+  content: "▾";
+  font-size: 14px;
+  opacity: .6;
+  transition: transform .25s ease;
+}
+
+/* rotate caret */
+details[open].qa > .q::after{
+  transform: rotate(180deg);
+}
+
+/* animated container */
+.answerWrap{
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    max-height .45s ease,
+    opacity .25s ease,
+    transform .25s ease;
+  will-change: max-height, opacity, transform;
+}
+.answerWrap{
+  transition:
+    max-height .55s ease,
+    opacity .35s ease,
+    transform .35s ease;
+}
+
+/* open state */
+details[open] .answerWrap{
+  max-height: 600px; /* increase if answers get longer */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.answerWrap > .a{
+  overflow: hidden;
+}
+
+/* open state */
+details[open] .answerWrap{
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.qa .a{
+  margin-top: 10px;
+}
 </style>
 
 <style>
