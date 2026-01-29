@@ -3,13 +3,188 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Business & Financial | ImmediateLawyerHelp.com">
-  <!-- Paste the page body for Business & Financial here (everything between header and footer) -->
-  <section class="section">
-    <div class="container">
-      <div class="card">
-        <h1>Business & Financial</h1>
-        <p class="muted">Paste your existing Business & Financial content here.</p>
+<!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
+        <h1>Business &amp; Financial</h1>
+        <p class="heroSub">
+          Financial disputes can involve contracts, documentation, and deadlines.
+          Choose a topic below, or describe what’s happening to continue.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe your issue…"
+            aria-label="Describe your issue"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Document-driven</span><span class="sep">•</span>
+          <span>Time-sensitive</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Article -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="bfArticle">
+          <h2 class="cardTitle">Common business and financial matters</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            Business and financial cases often depend on written agreements, payment records, and clear timelines.
+            The sections below provide a quick overview and link to dedicated pages (coming soon).
+          </p>
+
+          <section class="bfSection" id="contract-disputes">
+            <h3 class="bfH"><a class="bfTitleLink" href="/business-financial/contract-disputes/">Contract Disputes</a></h3>
+            <div class="bfImage">
+              <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta bfBlurb">
+              Contract disputes can involve nonpayment, missed deadlines, quality issues, cancellations, or disagreements over terms.
+              These cases often turn on what was written, what was delivered, and what communications occurred during performance.
+              Organizing the contract, invoices, and messages usually helps clarify options.
+            </p>
+            <a class="bfLearn" href="/business-financial/contract-disputes/">Learn more →</a>
+          </section>
+
+          <section class="bfSection" id="debt-collection">
+            <h3 class="bfH"><a class="bfTitleLink" href="/business-financial/debt-collection/">Debt Collection</a></h3>
+            <div class="bfImage">
+              <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta bfBlurb">
+              Debt collection matters can involve unpaid invoices, loan defaults, judgments, liens, and repayment agreements.
+              The right approach often depends on documentation, the debtor’s situation, and any court deadlines.
+              Preserving statements, notices, and payment history can be important.
+            </p>
+            <a class="bfLearn" href="/business-financial/debt-collection/">Learn more →</a>
+          </section>
+
+          <section class="bfSection" id="debt-relief-victim">
+            <h3 class="bfH"><a class="bfTitleLink" href="/business-financial/debt-relief-program-victim/">Debt Relief Program Victim</a></h3>
+            <div class="bfImage">
+              <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta bfBlurb">
+              Some debt relief programs are legitimate, but others involve misleading promises, hidden fees, or instructions to stop paying creditors.
+              If payments were taken without results, or terms were not explained clearly, there may be options to dispute charges or pursue remedies.
+              Keeping contracts, payment records, and communications can help evaluate what happened.
+            </p>
+            <a class="bfLearn" href="/business-financial/debt-relief-program-victim/">Learn more →</a>
+          </section>
+
+          <section class="bfSection" id="debt-collector-harassment">
+            <h3 class="bfH"><a class="bfTitleLink" href="/business-financial/debt-collector-harassment/">Debt Collector Harassment</a></h3>
+            <div class="bfImage">
+              <img src="https://images.unsplash.com/photo-1542228262-3d663b30638a?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta bfBlurb">
+              Harassment may include repeated calls, threats, contacting third parties, or attempting collection without proper validation.
+              Rules can vary by situation, but documenting dates, voicemails, letters, and caller details can matter.
+              A short review can help identify whether the conduct crosses legal lines.
+            </p>
+            <a class="bfLearn" href="/business-financial/debt-collector-harassment/">Learn more →</a>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep sideSearchForm present -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width:72ch;">
+          Describe your financial or business issue and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Business/Financial page-specific styling */
+    .bfArticle .bfSection{
+      padding: 18px 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .bfArticle .bfSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+    .bfH{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+    .bfTitleLink{
+      text-decoration: none;
+    }
+    .bfTitleLink:hover{
+      text-decoration: underline;
+    }
+    .bfImage{
+      margin: 12px 0 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .bfImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 900px){
+      .bfImage{ max-width: 100%; }
+    }
+    .bfBlurb{
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 78ch;
+    }
+    .bfLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .bfLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
 </SiteLayout>
