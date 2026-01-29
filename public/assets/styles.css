@@ -604,6 +604,9 @@ a:hover{opacity:.92}
   padding-left: max(18px, calc(50vw - (var(--container) / 2) + 18px));
   padding-right: 18px;
 }
+html, body {
+  overflow-x: hidden;
+}
 /* On larger screens show slightly wider cards */
 @media (min-width: 980px){
   .catCard{ flex-basis: 300px; }
