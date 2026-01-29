@@ -12,4 +12,188 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
       </div>
     </div>
   </section>
+   <!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
+        <h1>Criminal &amp; Traffic</h1>
+        <p class="heroSub">
+          Criminal charges and traffic matters can move quickly and carry lasting consequences.
+          Choose a topic below, or describe what happened to continue.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe what happened…"
+            aria-label="Describe what happened"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Time-sensitive</span><span class="sep">•</span>
+          <span>Confidential</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="ctArticle">
+          <h2 class="cardTitle">Common criminal and traffic cases</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            These situations often involve deadlines, court dates, and paperwork that varies by state.
+            The sections below provide a quick overview and link to dedicated pages (coming soon).
+          </p>
+
+          <section class="ctSection" id="criminal-defense">
+            <h3 class="ctH"><a class="ctTitleLink" href="/criminal-traffic/criminal-defense/">Criminal Defense</a></h3>
+            <div class="ctImage">
+              <img src="https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta ctBlurb">
+              Criminal defense covers a wide range of charges, from misdemeanors to serious felonies.
+              These cases can involve arrest procedures, bail, court appearances, and evidence review.
+              Early legal guidance can help clarify options, obligations, and what happens next.
+            </p>
+            <a class="ctLearn" href="/criminal-traffic/criminal-defense/">Learn more →</a>
+          </section>
+
+          <section class="ctSection" id="dui-dwi-drug">
+            <h3 class="ctH"><a class="ctTitleLink" href="/criminal-traffic/dui-dwi-drug-charges/">DUI / DWI / Drug Charges</a></h3>
+            <div class="ctImage">
+              <img src="https://images.unsplash.com/photo-1521199646462-4e3d6f1f213e?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta ctBlurb">
+              DUI, DWI, and drug-related charges can affect driving privileges, employment, and criminal records.
+              These cases often involve traffic stops, field tests, breath or blood testing, and strict response timelines.
+              Missing a deadline can increase penalties or limit available options.
+            </p>
+            <a class="ctLearn" href="/criminal-traffic/dui-dwi-drug-charges/">Learn more →</a>
+          </section>
+
+          <section class="ctSection" id="traffic-tickets">
+            <h3 class="ctH"><a class="ctTitleLink" href="/criminal-traffic/traffic-tickets/">Traffic Tickets</a></h3>
+            <div class="ctImage">
+              <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta ctBlurb">
+              Traffic violations can include speeding, reckless driving, license issues, or failure to appear.
+              Even routine tickets may lead to fines, points, higher insurance costs, or license consequences.
+              Some citations may be contestable depending on the facts and local rules.
+            </p>
+            <a class="ctLearn" href="/criminal-traffic/traffic-tickets/">Learn more →</a>
+          </section>
+
+          <section class="ctSection" id="domestic-violence-assault">
+            <h3 class="ctH"><a class="ctTitleLink" href="/criminal-traffic/domestic-violence-assault/">Domestic Violence / Assault</a></h3>
+            <div class="ctImage">
+              <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta ctBlurb">
+              Domestic violence and assault allegations often involve protective orders, court restrictions, and criminal exposure.
+              These situations can be urgent and may affect housing, contact with family, and future court outcomes.
+              Understanding immediate obligations and the process early can reduce uncertainty.
+            </p>
+            <a class="ctLearn" href="/criminal-traffic/domestic-violence-assault/">Learn more →</a>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep sideSearchForm present (homepage scripts may attach listeners) -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width:72ch;">
+          Describe what happened and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Criminal/Traffic page-specific styling: restrained images, article rhythm */
+    .ctArticle .ctSection{
+      padding: 18px 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .ctArticle .ctSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+    .ctH{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+    .ctTitleLink{
+      text-decoration: none;
+    }
+    .ctTitleLink:hover{
+      text-decoration: underline;
+    }
+    .ctImage{
+      margin: 12px 0 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .ctImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 900px){
+      .ctImage{ max-width: 100%; }
+    }
+    .ctBlurb{
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 78ch;
+    }
+    .ctLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .ctLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
 </SiteLayout>
