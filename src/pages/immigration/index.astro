@@ -3,13 +3,188 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Immigration | ImmediateLawyerHelp.com">
-  <!-- Paste the page body for Immigration here (everything between header and footer) -->
-  <section class="section">
-    <div class="container">
-      <div class="card">
+<!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
         <h1>Immigration</h1>
-        <p class="muted">Paste your existing Immigration content here.</p>
+        <p class="heroSub">
+          Immigration matters often involve strict forms, deadlines, and document requirements.
+          Choose a topic below, or describe what you need help with to continue.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe your immigration issue…"
+            aria-label="Describe your immigration issue"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Confidential</span><span class="sep">•</span>
+          <span>Time-sensitive</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Article -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="immArticle">
+          <h2 class="cardTitle">Common immigration matters</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            Immigration cases can involve agency processing, interviews, supporting evidence, and changing rules.
+            The sections below provide a quick overview and link to dedicated pages (coming soon).
+          </p>
+
+          <section class="immSection" id="green-card">
+            <h3 class="immH"><a class="immTitleLink" href="/immigration/green-card/">General Immigration / Green Card</a></h3>
+            <div class="immImage">
+              <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta immBlurb">
+              Green card and general immigration matters can include family-based petitions, adjustment of status, consular processing, and evidence preparation.
+              These cases often depend on accurate paperwork, supporting documents, and meeting eligibility requirements.
+              Small errors can create delays, so organizing documents early usually helps.
+            </p>
+            <a class="immLearn" href="/immigration/green-card/">Learn more →</a>
+          </section>
+
+          <section class="immSection" id="deportation">
+            <h3 class="immH"><a class="immTitleLink" href="/immigration/deportation/">Deportation</a></h3>
+            <div class="immImage">
+              <img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta immBlurb">
+              Deportation (removal) matters can involve immigration court hearings, bond issues, and requests for relief from removal.
+              Deadlines and court dates can be strict, and missing one can have serious consequences.
+              Having a clear timeline of events and copies of all notices is often important.
+            </p>
+            <a class="immLearn" href="/immigration/deportation/">Learn more →</a>
+          </section>
+
+          <section class="immSection" id="asylum">
+            <h3 class="immH"><a class="immTitleLink" href="/immigration/asylum/">Asylum</a></h3>
+            <div class="immImage">
+              <img src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta immBlurb">
+              Asylum cases may involve preparing declarations, gathering evidence, and meeting filing deadlines.
+              These matters can be emotionally demanding and documentation-heavy, often requiring careful organization.
+              Understanding the process early can help reduce uncertainty about what’s required.
+            </p>
+            <a class="immLearn" href="/immigration/asylum/">Learn more →</a>
+          </section>
+
+          <section class="immSection" id="work-visas">
+            <h3 class="immH"><a class="immTitleLink" href="/immigration/work-visas/">Work Visas</a></h3>
+            <div class="immImage">
+              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta immBlurb">
+              Work visas can involve employer sponsorship, eligibility requirements, and time-limited filing windows.
+              The process may include petitions, supporting evidence, and coordination with employers or schools.
+              A clear understanding of visa category rules can prevent avoidable delays.
+            </p>
+            <a class="immLearn" href="/immigration/work-visas/">Learn more →</a>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep sideSearchForm present -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width:72ch;">
+          Describe your immigration issue and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Immigration page-specific styling: restrained images, article rhythm */
+    .immArticle .immSection{
+      padding: 18px 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .immArticle .immSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+    .immH{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+    .immTitleLink{
+      text-decoration: none;
+    }
+    .immTitleLink:hover{
+      text-decoration: underline;
+    }
+    .immImage{
+      margin: 12px 0 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .immImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 900px){
+      .immImage{ max-width: 100%; }
+    }
+    .immBlurb{
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 78ch;
+    }
+    .immLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .immLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
 </SiteLayout>

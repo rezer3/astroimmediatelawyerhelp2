@@ -3,13 +3,162 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Employment Law | ImmediateLawyerHelp.com">
-  <!-- Paste the page body for Employment Law here (everything between header and footer) -->
-  <section class="section">
-    <div class="container">
-      <div class="card">
+<!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
         <h1>Employment Law</h1>
-        <p class="muted">Paste your existing Employment Law content here.</p>
+        <p class="heroSub">
+          Workplace disputes can affect income, benefits, and future employment.
+          Choose a topic below, or describe what happened to continue.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe your workplace issue…"
+            aria-label="Describe your workplace issue"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Confidential</span><span class="sep">•</span>
+          <span>Time-sensitive</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Article -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="empArticle">
+          <h2 class="cardTitle">Common employment issues</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            Employment matters may involve contracts, internal policies, and deadlines for filing complaints.
+            The sections below provide a quick overview and link to dedicated pages (coming soon).
+          </p>
+
+          <section class="empSection" id="wrongful-termination">
+            <h3 class="empH"><a class="empTitleLink" href="/employment-law/wrongful-termination/">Wrongful Termination</a></h3>
+            <div class="empImage">
+              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta empBlurb">
+              Wrongful termination claims may involve discrimination, retaliation, or firing that violates a contract or public policy.
+              These cases often depend on documentation such as emails, performance reviews, and written policies.
+              Timelines can be short, especially when agency filings are required.
+            </p>
+            <a class="empLearn" href="/employment-law/wrongful-termination/">Learn more →</a>
+          </section>
+
+          <section class="empSection" id="employment">
+            <h3 class="empH"><a class="empTitleLink" href="/employment-law/employment/">Employment</a></h3>
+            <div class="empImage">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta empBlurb">
+              Employment law can include wage and hour disputes, harassment, workplace accommodations, non-compete issues, and severance review.
+              The right approach often depends on the type of claim, the employer’s policies, and what records exist.
+              A short consultation can help identify what steps are realistic and what evidence matters most.
+            </p>
+            <a class="empLearn" href="/employment-law/employment/">Learn more →</a>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep sideSearchForm present -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width:72ch;">
+          Describe your workplace issue and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Employment page-specific styling: restrained images, article rhythm */
+    .empArticle .empSection{
+      padding: 18px 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .empArticle .empSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+    .empH{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+    .empTitleLink{
+      text-decoration: none;
+    }
+    .empTitleLink:hover{
+      text-decoration: underline;
+    }
+    .empImage{
+      margin: 12px 0 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .empImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 900px){
+      .empImage{ max-width: 100%; }
+    }
+    .empBlurb{
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 78ch;
+    }
+    .empLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .empLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
 </SiteLayout>

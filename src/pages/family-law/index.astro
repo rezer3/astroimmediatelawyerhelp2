@@ -3,13 +3,174 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Family Law | ImmediateLawyerHelp.com">
-  <!-- Paste the page body for Family Law here (everything between header and footer) -->
-  <section class="section">
-    <div class="container">
-      <div class="card">
+ <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
         <h1>Family Law</h1>
-        <p class="muted">Paste your existing Family Law content here.</p>
+        <p class="heroSub">
+          Family law issues can affect living arrangements, finances, and parenting plans.
+          Choose a topic below, or describe what’s going on to continue.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe your situation…"
+            aria-label="Describe your situation"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Confidential</span><span class="sep">•</span>
+          <span>Time-sensitive</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Article -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="famArticle">
+          <h2 class="cardTitle">Common family law matters</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            Family cases often involve court filings, deadlines, and temporary orders that can affect day-to-day life.
+            The sections below provide a quick overview and link to dedicated pages (coming soon).
+          </p>
+
+          <section class="famSection" id="divorce">
+            <h3 class="famH"><a class="famTitleLink" href="/family-law/divorce/">Divorce</a></h3>
+            <div class="famImage">
+              <img src="https://images.unsplash.com/photo-1520975693411-6c2b1a2f2b45?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta famBlurb">
+              Divorce often involves decisions about property, debt, support, and future living arrangements.
+              Some cases move quickly through agreed terms, while others involve disputes that require hearings and formal discovery.
+              Early guidance can help clarify what documents to gather and what steps typically come next.
+            </p>
+            <a class="famLearn" href="/family-law/divorce/">Learn more →</a>
+          </section>
+
+          <section class="famSection" id="child-custody">
+            <h3 class="famH"><a class="famTitleLink" href="/family-law/child-custody/">Child Custody</a></h3>
+            <div class="famImage">
+              <img src="https://images.unsplash.com/photo-1520975724210-2c6d39b3d0b6?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta famBlurb">
+              Child custody matters can involve parenting schedules, decision-making authority, and transportation logistics.
+              Courts may issue temporary orders early, and the outcome can depend on documentation, communication records, and consistency.
+              Understanding local standards and timelines can reduce uncertainty.
+            </p>
+            <a class="famLearn" href="/family-law/child-custody/">Learn more →</a>
+          </section>
+
+          <section class="famSection" id="family-law">
+            <h3 class="famH"><a class="famTitleLink" href="/family-law/family-law/">Family Law</a></h3>
+            <div class="famImage">
+              <img src="https://images.unsplash.com/photo-1521790797524-b2497295b8a0?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta famBlurb">
+              Family law can include support modifications, visitation enforcement, relocation disputes, and related court orders.
+              These matters often turn on prior agreements, existing court paperwork, and changes in circumstances.
+              A short consultation can help identify what forms or filings may be required.
+            </p>
+            <a class="famLearn" href="/family-law/family-law/">Learn more →</a>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep sideSearchForm present -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width:72ch;">
+          Describe your situation and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Family page-specific styling: restrained images, article rhythm */
+    .famArticle .famSection{
+      padding: 18px 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .famArticle .famSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+    .famH{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+    .famTitleLink{
+      text-decoration: none;
+    }
+    .famTitleLink:hover{
+      text-decoration: underline;
+    }
+    .famImage{
+      margin: 12px 0 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .famImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 900px){
+      .famImage{ max-width: 100%; }
+    }
+    .famBlurb{
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 78ch;
+    }
+    .famLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .famLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
 </SiteLayout>

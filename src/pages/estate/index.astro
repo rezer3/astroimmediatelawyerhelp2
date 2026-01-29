@@ -1,0 +1,365 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Estate Planning | ImmediateLawyerHelp.com">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
+        <h1>Estate Planning</h1>
+        <p class="heroSub">
+          Estate planning can help clarify wishes, protect assets, and reduce uncertainty for family members.
+          Choose a topic below, or describe what you need help with to continue.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Briefly describe what you need…"
+            aria-label="Describe what you need"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>Private</span><span class="sep">•</span>
+          <span>Document-focused</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article -->
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="estArticle">
+          <h2 class="cardTitle">Common estate planning documents</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            Estate planning often involves preparing documents that control how decisions are made during life and how property is handled after death.
+            The sections below provide a quick overview and link to dedicated pages (coming soon).
+          </p>
+
+          <section class="estSection" id="will">
+            <h3 class="estH"><a class="estTitleLink" href="/estate-planning/will/">Will</a></h3>
+            <div class="estImage">
+              <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta estBlurb">
+              A will typically names beneficiaries, appoints an executor, and may designate guardians for minor children.
+              It can also clarify specific gifts and how remaining property should be distributed.
+              Proper signing and witness requirements vary by state and can affect validity.
+            </p>
+            <a class="estLearn" href="/estate-planning/will/">Learn more →</a>
+          </section>
+
+          <section class="estSection" id="trust">
+            <h3 class="estH"><a class="estTitleLink" href="/estate-planning/trust/">Trust</a></h3>
+            <div class="estImage">
+              <img src="https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta estBlurb">
+              Trusts can be used to manage assets, control distribution timing, and in some cases reduce probate complexity.
+              They may be useful for blended families, minor beneficiaries, special needs planning, or privacy concerns.
+              The right structure depends on goals, asset types, and local rules.
+            </p>
+            <a class="estLearn" href="/estate-planning/trust/">Learn more →</a>
+          </section>
+
+          <section class="estSection" id="power-of-attorney">
+            <h3 class="estH"><a class="estTitleLink" href="/estate-planning/power-of-attorney/">Power of Attorney</a></h3>
+            <div class="estImage">
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=60" alt="" loading="lazy" />
+            </div>
+            <p class="guideMeta estBlurb">
+              A power of attorney authorizes someone to act on your behalf for financial or legal matters if you can’t.
+              Some documents take effect immediately; others are “springing” and activate under specific conditions.
+              Banks and institutions may have particular requirements for acceptance.
+            </p>
+            <a class="estLearn" href="/estate-planning/power-of-attorney/">Learn more →</a>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep sideSearchForm present -->
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Not sure which applies?</h2>
+        <p class="muted" style="line-height:1.6; max-width:72ch;">
+          Describe what you need and we’ll route you to the right next step.
+        </p>
+
+        <form id="sideSearchForm" class="sideSearch" autocomplete="off">
+          <input type="text" placeholder="Describe your issue…" aria-label="Describe your issue" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal advice.</li>
+          <li>Using this site does not create an attorney-client relationship.</li>
+          <li>Independent attorneys may have different availability and policies.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    /* Estate Planning page-specific styling */
+    .estArticle .estSection{
+      padding: 18px 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .estArticle .estSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+    .estH{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+    .estTitleLink{
+      text-decoration: none;
+    }
+    .estTitleLink:hover{
+      text-decoration: underline;
+    }
+    .estImage{
+      margin: 12px 0 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 62%;
+    }
+    .estImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 900px){
+      .estImage{ max-width: 100%; }
+    }
+    .estBlurb{
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 78ch;
+    }
+    .estLearn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .estLearn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      text-decoration: none;
+    }
+  </style>
+<section class="ctaBand">
+    <div class="container ctaBandInner">
+      <div>
+        <div class="ctaBandTitle">Get started now</div>
+        <div class="ctaBandSub">Tell us what you need help with, and we’ll route you to the right attorney type.</div>
+      </div>
+      <a class="btn btnLarge" href="#heroSearchForm">Start</a>
+    </div>
+  </section>
+
+  <!-- Footer (fatter like first image) -->
+  <footer class="footer">
+    <div class="container footerTop">
+      <div class="footerBrand">
+        <div class="footerLogo">ImmediateLawyerHelp<span>.com</span></div>
+        <div class="footerDesc">
+          Legal connection service. Not a law firm. No attorney-client relationship is formed by using this website.
+        </div>
+      </div>
+
+      <div class="footerCols">
+        <div class="footerCol">
+          <div class="footerTitle">Categories</div>
+          <a href="/personal-injury/">Personal Injury</a>
+          <a href="/criminal-traffic/">Criminal / Traffic</a>
+          <a href="/family-law/">Family Law</a>
+          <a href="/employment-law/">Employment</a>
+          <a href="/immigration/">Immigration</a>
+          <a href="/landlord-tenant/">Landlord / Tenant</a>
+        </div>
+
+        <div class="footerCol">
+          <div class="footerTitle">More areas</div>
+          <a href="/estate/">Estate</a>
+          <a href="/business-financial/">Business & Financial</a>
+          <a href="/bankruptcy/">Bankruptcy</a>
+          <a href="/tax/">Tax</a>
+          <a href="/mass-tort/">Mass Tort</a>
+          <a href="/civil-lawsuit/">Civil Lawsuit</a>
+        </div>
+
+        <div class="footerCol">
+          <div class="footerTitle">Company</div>
+          <a href="/about.html">About</a>
+          <a href="/how-it-works.html">How it works</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/for-attorneys.html">For Attorneys</a>
+          <a href="/guides/">Legal guides</a>
+        </div>
+
+        <div class="footerCol">
+          <div class="footerTitle">Legal</div>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/disclaimer.html">Disclaimer</a>
+          <a href="/do-not-sell.html">Do Not Sell/Share</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footerBottom">
+      <div>© <span id="year"></span> ImmediateLawyerHelp.com</div>
+      <div class="footerBottomLinks">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Skeleton behavior: redirect to your intake/form with ?area=...
+    // For now we simply slugify the input; later you can map this to practiceAreaKey selections.
+    function slugify(s) {
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/['"]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 80);
+    }
+
+    function handleSearchSubmit(e) {
+      e.preventDefault();
+      const input = e.target.querySelector("input");
+      const q = input ? input.value : "";
+      const area = slugify(q) || "general";
+      // Replace with your real intake URL
+      const intakeBase = "https://legalform.pages.dev/";
+      window.location.href = intakeBase + "?area=" + encodeURIComponent(area);
+    }
+
+    document.getElementById("heroSearchForm")?.addEventListener("submit", handleSearchSubmit);
+    document.getElementById("sideSearchForm")?.addEventListener("submit", handleSearchSubmit);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script>
+(() => {
+  const rail = document.querySelector(".categoryRail");
+  if (!rail) return;
+
+  // Respect reduced-motion
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (reduceMotion) return;
+
+  rail.classList.add("isAuto");
+let isPaused = false;
+let last = performance.now();
+let carry = 0;                // <-- accumulates fractional pixels
+const pxPerSec = 30;          // you can go low now
+
+function step(now) {
+  const dt = (now - last) / 1000;
+  last = now;
+
+  if (!isPaused) {
+    const maxScroll = rail.scrollWidth - rail.clientWidth;
+
+    carry += pxPerSec * dt;
+    const dx = Math.floor(carry);   // only apply whole pixels
+    if (dx >= 1) {
+      rail.scrollLeft += dx;
+      carry -= dx;
+    }
+
+    if (rail.scrollLeft >= maxScroll - 2) {
+      rail.scrollLeft = 0;
+      carry = 0;
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+  requestAnimationFrame(step);
+
+  function pause() {
+    isPaused = true;
+    rail.classList.remove("isAuto"); // allow snap while user interacts
+  }
+  function resume() {
+    isPaused = false;
+    rail.classList.add("isAuto");    // disable snap for autoplay
+  }
+
+  rail.addEventListener("mouseenter", pause);
+  rail.addEventListener("mouseleave", resume);
+  rail.addEventListener("touchstart", pause, { passive: true });
+  rail.addEventListener("touchend", resume, { passive: true });
+
+  let wheelTimer = null;
+  rail.addEventListener("wheel", () => {
+    pause();
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(resume, 900);
+  }, { passive: true });
+})();
+</script>
+
+  <script>
+  const heroImages = [
+    "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2000&q=60",
+    "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=60",
+    "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=2000&q=60"
+  ];
+
+  let heroIndex = 0;
+  const heroBg = document.querySelector(".heroBg");
+
+  function rotateHeroImage() {
+    heroIndex = (heroIndex + 1) % heroImages.length;
+
+    heroBg.classList.add("fade");
+
+    setTimeout(() => {
+      heroBg.style.backgroundImage = `
+        linear-gradient(180deg, rgba(17,34,52,.55), rgba(17,34,52,.15)),
+        linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,0)),
+        url("${heroImages[heroIndex]}")
+      `;
+      heroBg.classList.remove("fade");
+    }, 600);
+  }
+
+  setInterval(rotateHeroImage, 15000);
+</script>
+</SiteLayout>
