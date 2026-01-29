@@ -1,0 +1,148 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Tax Help & Tax Attorneys | ImmediateLawyerHelp.com"
+  description="Get help with IRS issues, tax disputes, audits, liens, levies, and tax resolution. Connect with an independent tax attorney."
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="container heroInner">
+      <div class="heroCard">
+        <h1>Tax Help &amp; Tax Attorneys</h1>
+        <p class="heroSub">
+          Issues with the IRS or state tax authorities can escalate quickly.
+          Describe your tax issue to get started.
+        </p>
+
+        <form id="heroSearchForm" class="heroSearch" autocomplete="off">
+          <input
+            id="issueInput"
+            type="text"
+            placeholder="Describe your tax issue…"
+            aria-label="Describe your tax issue"
+          />
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="heroBadges">
+          <span>IRS &amp; State Taxes</span><span class="sep">•</span>
+          <span>Time-sensitive</span><span class="sep">•</span>
+          <span>Independent attorneys</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sectionTight">
+    <div class="container">
+      <div class="card">
+        <article class="taxArticle">
+          <h2 class="cardTitle">Common tax issues we help with</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.65; max-width:78ch;">
+            Tax matters often involve strict deadlines, notices, and significant financial consequences.
+            The sections below outline common situations where speaking with a tax attorney may help.
+          </p>
+
+          <section class="taxSection">
+            <h3>IRS Audits &amp; Examinations</h3>
+            <p>
+              An IRS audit can involve requests for documents, interviews, or examinations of prior returns.
+              Representation can help ensure responses are accurate, timely, and appropriately limited in scope.
+            </p>
+          </section>
+
+          <section class="taxSection">
+            <h3>Back Taxes &amp; Tax Debt</h3>
+            <p>
+              Owed taxes can accumulate penalties and interest over time.
+              Options may include payment plans, offers in compromise, or dispute of assessed balances.
+            </p>
+          </section>
+
+          <section class="taxSection">
+            <h3>Tax Liens &amp; Levies</h3>
+            <p>
+              Liens and levies can affect wages, bank accounts, and property.
+              Acting quickly may help stop or reduce collection actions while options are reviewed.
+            </p>
+          </section>
+
+          <section class="taxSection">
+            <h3>Unfiled Tax Returns</h3>
+            <p>
+              Failure to file required returns can trigger substitute returns, penalties, and enforcement actions.
+              Filing correctly and in the right order can significantly affect total liability.
+            </p>
+          </section>
+
+          <section class="taxSection">
+            <h3>Business &amp; Payroll Tax Issues</h3>
+            <p>
+              Payroll taxes and trust fund recovery penalties can create personal exposure for business owners.
+              These matters often require careful handling and documentation.
+            </p>
+          </section>
+
+          <a class="primaryCta" href="#heroSearchForm">Get Help With a Tax Issue</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container twoCol">
+      <div class="card">
+        <h2 class="cardTitle">Why timing matters</h2>
+        <p class="muted" style="line-height:1.6;">
+          Tax agencies operate on strict schedules. Missing a deadline or responding incorrectly
+          can reduce available options. Early review often provides more flexibility.
+        </p>
+      </div>
+
+      <aside class="card">
+        <h2 class="cardTitle">Important notes</h2>
+        <ul class="bullets">
+          <li>Information on this site is not legal or tax advice.</li>
+          <li>Using this service does not create an attorney-client relationship.</li>
+          <li>Independent attorneys have different availability and criteria.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    .taxArticle .taxSection{
+      padding: 14px 0 18px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      max-width: 78ch;
+    }
+    .taxArticle .taxSection:last-of-type{
+      border-bottom: 0;
+      padding-bottom: 6px;
+    }
+    .taxArticle h3{
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .primaryCta{
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .primaryCta:hover{
+      background: rgba(255,255,255,.12);
+    }
+  </style>
+
+</SiteLayout>
