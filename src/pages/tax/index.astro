@@ -4,7 +4,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
 <SiteLayout title="Tax Help | ImmediateLawyerHelp.com">
   <section class="taxHero">
-    <div class="container reveal reveal-right reveal-left">
+    <div class="container">
       <div class="heroCard">
         <h1>Tax help from experienced attorneys</h1>
         <p class="sub">
@@ -34,7 +34,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
   <section class="taxScope">
     <div class="container">
       <div class="grid">
-        <article class="featureCard reveal reveal-left">
+        <article class="featureCard">
           <div class="media" aria-hidden="true"></div>
           <div class="body">
             <h2>Individual Tax Matters</h2>
@@ -47,7 +47,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           </div>
         </article>
 
-        <article class="featureCard reveal reveal-right">
+        <article class="featureCard">
           <div class="media alt" aria-hidden="true"></div>
           <div class="body">
             <h2>Business Tax Matters</h2>
@@ -61,7 +61,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
       </div>
 
 
-     <div class="ctaStrip infoBlock centered withImage right">
+     <div class="ctaStrip infoBlock centered withImage right reveal reveal-right reveal-why">
         <div class="text">
           <h3>Why Tax Issues Often Get Worse over Time</h3>
           <p class="muted">
@@ -74,7 +74,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           <div class="image"><img src="/assets/tax-escalation.png" alt="" /></div>
       </div>
 
-      <div class="ctaStrip infoBlock centered withImage left">
+      <div class="ctaStrip infoBlock centered withImage left reveal reveal-left">
         <div class="text">
           <h3>How A Tax Attorney Can Help</h3>
           <ul class="bulletList">
@@ -88,7 +88,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
         <div class="image"><img src="/assets/tax-attorney-help.png" alt="" /></div>
       </div>
 
-      <div class="ctaStrip infoBlock centered">
+      <div class="ctaStrip infoBlock centered reveal reveal-common reveal-right">
         <div>
           <h3>Common Situations People Reach Out About</h3>
           <ul class="bulletList">
@@ -113,7 +113,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
             Describe what’s going on and we’ll route you to the appropriate type of tax attorney.
           </p>
         </div>
-        <a href="/legalform/" class="ctaBtn">Start Here</a>
+        <a href="#taxSearch" class="ctaBtn ctaBtn--secondary">Start Here</a>
       </div>
     </div>
 
@@ -159,29 +159,12 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           <h3>Not sure what category fits?</h3>
           <p class="muted">Describe what’s happening and we’ll route you to the right attorney type.</p>
         </div>
-       <a href="/legalform/" class="ctaBtn ctaBtn--secondary">Start</a>
+        <a class="ctaBtn" href="/legalform/">Start</a>
       </div>
     </div>
   </section>
 
   <style>
-    .taxHero{
-      position: relative;
-      padding: 72px 0 56px;
-      background: radial-gradient(1200px 600px at 50% 0%, rgba(12, 42, 92, .18), transparent 60%),
-                  linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,0));
-    }
-    .container{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-    .heroCard{
-      max-width: 820px;
-      margin: 0 auto;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.08);
-    }
     .taxHero{
   position: relative;
   padding: 72px 0 56px;
@@ -202,6 +185,17 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
       #f3f6fb
     );
 }
+    .container{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .heroCard{
+      max-width: 820px;
+      margin: 0 auto;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+    }
     h1{ font-size: 44px; line-height: 1.1; margin: 0 0 10px; letter-spacing: -0.02em; }
     .sub{ margin: 0 0 18px; color: rgba(0,0,0,.68); font-size: 16px; }
     .searchRow{
@@ -501,27 +495,33 @@ details[open] .answerWrap{
   margin-top: 10px;
 }
 
-    /* Scroll / load reveal animations */
+
+    /* Scroll reveal (guided slide, no fade) */
     .reveal{
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity .65s ease, transform .65s cubic-bezier(.22,.61,.36,1);
-      will-change: opacity, transform;
-    }
-    .reveal.reveal-left{ transform: translateX(-30px) translateY(10px); }
-    .reveal.reveal-right{ transform: translateX(30px) translateY(10px); }
-    .reveal.is-visible{
       opacity: 1;
-      transform: translateX(0) translateY(0);
-    }
-    @media (prefers-reduced-motion: reduce){
-      .reveal{
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
+      transform: translateX(0);
+      transition: transform .65s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
     }
 
+    .reveal-right{
+      transform: translateX(28px);
+    }
+
+    .reveal-left{
+      transform: translateX(-28px);
+    }
+
+    .reveal.is-visible{
+      transform: translateX(0);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .reveal{
+        transform: none;
+        transition: none;
+      }
+    }
 </style>
 
 <style>
@@ -550,11 +550,11 @@ details[open] .answerWrap{
       const io = new IntersectionObserver((entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            requestAnimationFrame(() => entry.target.classList.add('is-visible'));
             io.unobserve(entry.target);
           }
         }
-      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+      }, { threshold: 0.18, rootMargin: '0px 0px -12% 0px' });
 
       els.forEach(el => io.observe(el));
     })();
