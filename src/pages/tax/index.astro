@@ -4,7 +4,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
 <SiteLayout title="Tax Help | ImmediateLawyerHelp.com">
   <section class="taxHero">
-    <div class="container">
+    <div class="container reveal reveal-right reveal-left">
       <div class="heroCard">
         <h1>Tax help from experienced attorneys</h1>
         <p class="sub">
@@ -34,7 +34,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
   <section class="taxScope">
     <div class="container">
       <div class="grid">
-        <article class="featureCard">
+        <article class="featureCard reveal reveal-left">
           <div class="media" aria-hidden="true"></div>
           <div class="body">
             <h2>Individual Tax Matters</h2>
@@ -47,7 +47,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           </div>
         </article>
 
-        <article class="featureCard">
+        <article class="featureCard reveal reveal-right">
           <div class="media alt" aria-hidden="true"></div>
           <div class="body">
             <h2>Business Tax Matters</h2>
@@ -500,6 +500,28 @@ details[open] .answerWrap{
 .qa .a{
   margin-top: 10px;
 }
+
+    /* Scroll / load reveal animations */
+    .reveal{
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .65s ease, transform .65s cubic-bezier(.22,.61,.36,1);
+      will-change: opacity, transform;
+    }
+    .reveal.reveal-left{ transform: translateX(-30px) translateY(10px); }
+    .reveal.reveal-right{ transform: translateX(30px) translateY(10px); }
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce){
+      .reveal{
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
 </style>
 
 <style>
@@ -512,5 +534,30 @@ details[open] .answerWrap{
   .infoBlock.withImage { flex-direction: column; }
 }
 </style>
+
+
+  <script is:inline>
+    (() => {
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      if (!els.length) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        els.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        }
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+      els.forEach(el => io.observe(el));
+    })();
+  </script>
 
 </SiteLayout>
