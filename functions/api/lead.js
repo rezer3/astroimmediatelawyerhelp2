@@ -4,6 +4,13 @@ export async function onRequestPost({ request, env }) {
   // Optional:
   // - LEAD_WEBHOOK_SECRET (Secret) to sign payloads
   // - LEAD_WEBHOOK_TIMEOUT_MS (Text), e.g. "5000"
+if (request.headers.get("x-debug-env") === "1") {
+  return new Response(JSON.stringify({
+    hasUrl: !!env.LEAD_WEBHOOK_URL,
+    hasBearer: !!env.LEAD_WEBHOOK_AUTH_BEARER,
+    hasSecret: !!env.LEAD_WEBHOOK_SECRET,
+  }), { headers: { "Content-Type": "application/json" }});
+}
 
   if (!env.LEAD_WEBHOOK_URL) {
     return new Response(JSON.stringify({ ok: false, error: "missing_LEAD_WEBHOOK_URL" }), {
