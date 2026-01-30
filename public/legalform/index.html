@@ -481,6 +481,63 @@
     rgba(255,255,255,1)
   );
 }
+.ilfTopbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #f6f7fb;          /* matches your page bg */
+  border-bottom: 1px solid rgba(17,24,39,.08);
+}
+
+.ilfTopbarInner{
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ilfBrand{
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  text-decoration: none;
+}
+
+.ilfBrandName{
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 22px;
+  color: #0f172a;
+}
+
+.ilfBrandDot{
+  font-weight: 700;
+  font-size: 22px;
+  color: rgba(15,23,42,.55);
+}
+
+.ilfPhonePill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,23,42,.15);
+  background: rgba(255,255,255,.9);
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: 0 8px 24px rgba(15,23,42,.06);
+}
+
+.ilfPhonePill:hover{
+  background: #fff;
+  border-color: rgba(15,23,42,.22);
+}
 </style>
 <script>
     
@@ -493,25 +550,19 @@
   </head>
 
   <body>
-    <div class="topbar">
-      <div class="brand">
-        <div class="brandMark">GT</div>
-        <div>Immediate Lawyer Help</div>
-      </div>
+<header class="ilfTopbar" role="banner">
+  <div class="ilfTopbarInner">
+    <a class="ilfBrand" href="/">
+      <span class="ilfBrandName">ImmediateLawyerHelp</span><span class="ilfBrandDot">.com</span>
+    </a>
 
-      <div class="topRight">
-        <div>Licensed agents • Multiple markets</div>
-<div class="phonePill">
-  <img
-    alt="phone"
-    src="https://static.wixstatic.com/media/430b26_f3c835b08a8a4af9aa29730225aa4454~mv2.png"
-  />
-<a href="tel:+16178558328">
-  (617) 855 - 8328
-</a>
-</div>
-      </div>
+    <div class="ilfHeaderMeta">
+      Across practice areas <span class="ilfSep">•</span> Routed by issue
     </div>
+
+    <a class="ilfPhonePill" href="tel:+16178558328">1-617-855-8328</a>
+  </div>
+</header>
 
     <div class="wrap">
       <div class="tile">
