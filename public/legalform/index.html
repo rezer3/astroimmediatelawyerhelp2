@@ -525,7 +525,18 @@
   opacity: 0;
   transform: translateY(6px);
 }
+/* While suggestions are updating, don't block clicks on the Continue button */
+#suggestBox.isUpdating{
+  pointer-events: none;     /* key fix: allows clicking through */
+  opacity: 1;               /* keep box solid */
+  background: #fff;         /* ensure no "see-through" feeling */
+}
 
+/* Keep items animating only (you already do this) */
+#suggestBox.isUpdating .suggestItem{
+  opacity: 0;
+  transform: translateY(6px);
+}
 </style>
 <script>
     
@@ -698,7 +709,8 @@ async function renderSearch(c){
 
 }
 
-box.addEventListener("scroll", updateFade, { passive:true });
+document.getElementById("suggestScroll")
+  .addEventListener("scroll", updateFade, { passive:true });
     function scoreMatch(q, text){
       if (!q) return -1;
       const t = norm(text);
