@@ -761,6 +761,11 @@ async function renderSearch(c){
   c.appendChild(renderAgentLine(steps[currentIdx].agent));
 
   const input = document.getElementById("intentInput");
+  function syncIntentAlign(){
+  input.classList.toggle("hasText", !!(input.value && input.value.length));
+}
+syncIntentAlign();
+input.addEventListener("input", syncIntentAlign);
   const box = document.getElementById("suggestBox");
   const btn = document.getElementById("intentContinue");
 // ----- Typing placeholder animation -----
@@ -819,16 +824,16 @@ function twTick(){
     twRender(word.slice(0, chIdx));
     if (chIdx >= word.length) {
       mode = "pause";
-      twTimer = setTimeout(twTick, 900);
+      twTimer = setTimeout(twTick, 1200);
       return;
     }
-    twTimer = setTimeout(twTick, 70);
+    twTimer = setTimeout(twTick, 73);
     return;
   }
 
   if (mode === "pause") {
     mode = "delete";
-    twTimer = setTimeout(twTick, 260);
+    twTimer = setTimeout(twTick, 320);
     return;
   }
 
@@ -838,10 +843,10 @@ function twTick(){
   if (chIdx <= 0) {
     exIdx++;
     mode = "type";
-    twTimer = setTimeout(twTick, 200);
+    twTimer = setTimeout(twTick, 300);
     return;
   }
-  twTimer = setTimeout(twTick, 40);
+  twTimer = setTimeout(twTick, 55);
 }
 
 function twStart(){

@@ -70,3 +70,12 @@ button,
 .suggestItem:hover .suggestCategory{
   color: #475569;
 }
+/* Search input: caret stays right when empty */
+#intentInput{
+  text-align: right;
+}
+
+/* When user has typed, go back to centered */
+#intentInput.hasText{
+  text-align: center;
+}
