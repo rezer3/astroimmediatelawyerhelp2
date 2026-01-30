@@ -553,6 +553,32 @@
     text-align: center;
   }
 }
+#typeHint{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  color:#94a3b8;          /* same gray as placeholder */
+  font-weight:700;
+  font-size:18px;
+}
+
+#typeHint .caret{
+  display:inline-block;
+  width:1ch;
+  margin-left:2px;
+  animation: typehintBlink 1s steps(1) infinite;
+  opacity:.8;
+}
+
+@keyframes typehintBlink{
+  50%{ opacity:0; }
+}
 /* Suggestion: category / credential line */
 .suggestCategory {
   font-family: var(--font-authority);
@@ -686,9 +712,9 @@ async function renderSearch(c){
     <div style="width:min(var(--inputW), 100%); margin:0 auto; position:relative;">
       <input
         id="intentInput"
-        placeholder="e.g., car accident, DUI, eviction"
         autocomplete="off"
       />
+      <div id="typeHint" aria-hidden="true"></div>
 <div id="suggestBox" style="
   display:none;
   position:absolute;
@@ -722,7 +748,123 @@ async function renderSearch(c){
   const input = document.getElementById("intentInput");
   const box = document.getElementById("suggestBox");
   const btn = document.getElementById("intentContinue");
+// ----- Typing placeholder animation -----
+const TYPE_EXAMPLES = [
+  "Car accident",
+ "Employment termination",
+  "Dog bite",
+ "Immigration",
+  "Estate planning",
+   "Eviction",
+   "Child custody",
+   "Medical abuse",
+  "Truck accident",
+  "Slip and fall",
+  "Traffic ticket",
+    "IRS audit",
+ ];
 
+const hintEl = document.getElementById("typeHint");
+
+let twTimer = null;
+let twRunning = false;
+let exIdx = 0, chIdx = 0;
+let mode = "type"; // "type" | "pause" | "delete"
+let stoppedByUser = false;
+
+function twClear(){
+  if (twTimer) clearTimeout(twTimer);
+  twTimer = null;
+}
+
+function twRender(text){
+  if (!hintEl) return;
+  // Hide hint if user has typed anything
+  if (input.value && input.value.length) {
+    hintEl.style.display = "none";
+    return;
+  }
+  hintEl.style.display = "flex";
+  hintEl.innerHTML = `${escapeHtml(text)}<span class="caret">|</span>`;
+}
+
+function twTick(){
+  if (!twRunning) return;
+
+  // If user started typing, stop permanently for this focus session
+  if (stoppedByUser || (input.value && input.value.length)) {
+    twStop();
+    return;
+  }
+
+  const word = TYPE_EXAMPLES[exIdx % TYPE_EXAMPLES.length];
+
+  if (mode === "type") {
+    chIdx++;
+    twRender(word.slice(0, chIdx));
+    if (chIdx >= word.length) {
+      mode = "pause";
+      twTimer = setTimeout(twTick, 900);
+      return;
+    }
+    twTimer = setTimeout(twTick, 70);
+    return;
+  }
+
+  if (mode === "pause") {
+    mode = "delete";
+    twTimer = setTimeout(twTick, 260);
+    return;
+  }
+
+  // delete
+  chIdx--;
+  twRender(word.slice(0, Math.max(0, chIdx)));
+  if (chIdx <= 0) {
+    exIdx++;
+    mode = "type";
+    twTimer = setTimeout(twTick, 200);
+    return;
+  }
+  twTimer = setTimeout(twTick, 40);
+}
+
+function twStart(){
+  if (twRunning) return;
+  twRunning = true;
+  stoppedByUser = false;
+  exIdx = 0; chIdx = 0; mode = "type";
+  twRender("");
+  twTick();
+}
+
+function twStop(){
+  twRunning = false;
+  twClear();
+  if (hintEl) hintEl.style.display = "none";
+}
+
+// Start immediately (only for empty input)
+twStart();
+
+// If user types: stop and stay stopped while there's content
+input.addEventListener("input", () => {
+  if (input.value && input.value.length) {
+    stoppedByUser = true;
+    twStop();
+  } else {
+    // if they clear the box, resume
+    twStart();
+  }
+});
+
+// Optional: if they click into the input and start typing, stop instantly
+input.addEventListener("keydown", () => {
+  if (!stoppedByUser) {
+    stoppedByUser = true;
+    twStop();
+  }
+});
   // Load categories asynchronously without making renderStep async
   loadPracticeAreas().then((cats) => {
 
