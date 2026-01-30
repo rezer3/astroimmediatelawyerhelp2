@@ -1,0 +1,65 @@
+/* ui.css */
+
+/* ---- Fonts ---- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600&display=swap");
+
+/* ---- Font tokens ---- */
+:root {
+  --font-authority: "Source Serif 4", Georgia, serif;
+  --font-ui: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ---- Base ---- */
+body {
+  font-family: var(--font-ui);
+}
+
+/* ---- Hierarchy ---- */
+h1,
+.question {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+input,
+#suggestBox button,
+button,
+.btn,
+.meta,
+small {
+  font-family: var(--font-ui);
+}
+
+/* ---- Weights (measured, not eager) ---- */
+input {
+  font-weight: 600;
+}
+
+input::placeholder {
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* Buttons: decisive, not salesy */
+button,
+.btn {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* ---- Suggestions ---- */
+.suggestItem {
+  font-family: var(--font-ui);
+}
+
+.suggestItem strong,
+.suggestItem span {
+  font-weight: 600;
+}
+
+/* ---- Micro polish ---- */
+#suggestBox button {
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
