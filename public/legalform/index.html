@@ -43,6 +43,15 @@
   overflow-x: hidden;
   width: 100%;
 }
+/* Step swap animation helpers */
+#content {
+  position: relative;
+  will-change: opacity, transform;
+}
+
+#content.isTransitioning {
+  pointer-events: none; /* prevent double-clicks during swap */
+}
 .quoteIdFooter{
   margin-top: 14px;
   color: #94a3b8;
@@ -978,6 +987,43 @@ async function loadQuestionBank() {
         history.replaceState({ idx }, "", url);
       }
 
+async function transitionRender(step) {
+  const c = $("content");
+  if (!c) return renderStep(step);
+
+  // If animations aren’t supported, just swap instantly.
+  if (!c.animate) return renderStep(step);
+
+  c.classList.add("isTransitioning");
+
+  // Animate OUT
+  try {
+    await c.animate(
+      [
+        { opacity: 1, transform: "translateY(0px) scale(1)" },
+        { opacity: 0, transform: "translateY(10px) scale(0.995)" }
+      ],
+      { duration: 140, easing: "ease", fill: "forwards" }
+    ).finished;
+  } catch {}
+
+  // Swap content
+  renderStep(step);
+
+  // Animate IN
+  try {
+    await c.animate(
+      [
+        { opacity: 0, transform: "translateY(-6px) scale(0.998)" },
+        { opacity: 1, transform: "translateY(0px) scale(1)" }
+      ],
+      { duration: 180, easing: "ease", fill: "forwards" }
+    ).finished;
+  } catch {}
+
+  c.classList.remove("isTransitioning");
+}
+
       function goTo(idx, { fromPop=false } = {}){
         currentIdx = Math.max(0, Math.min(idx, steps.length - 1));
         const step = steps[currentIdx];
@@ -986,7 +1032,7 @@ async function loadQuestionBank() {
         setHeaderForStep(step);
         setError("");
 
-        renderStep(step);
+        transitionRender(step);
 
         if (!fromPop) pushHistory(currentIdx);
       }
