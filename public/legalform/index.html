@@ -183,7 +183,42 @@
         border-radius:999px;
         background: var(--progress);
         box-shadow: 0 0 0 4px var(--progressGlow);
-}
+        }
+        .stateGlyphWrap{
+          position: relative;
+          width: 40px;
+          height: 26px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* Faint state outline */
+        .stateGlyph{
+          width: 100%;
+          height: 100%;
+          display:block;
+
+          /* Most SVG state sprites are *filled* shapes, not stroked outlines.
+             So we render a very faint fill + a light stroke. */
+          fill: rgba(124,74,18,0.10);
+          stroke: rgba(124,74,18,0.35);
+          stroke-width: 1.2;
+        }
+
+        /* Two-letter badge on top */
+        .stateBadge{
+          position: absolute;
+          font-family: var(--font-ui);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          color: #7c4a12;
+          background: rgba(255,255,255,0.85);
+          padding: 2px 5px;
+          border-radius: 6px;
+          line-height: 1;
+        }
 
       h1.question{
         text-align:center;
@@ -268,17 +303,18 @@
         border-color: rgba(31,91,216,0.55);
         box-shadow: 0 0 0 4px rgba(31,91,216,0.10);
       }
-
       .agentRow{
         display:flex;
+        flex-direction: column;
         align-items:center;
         justify-content:center;
-        gap:12px;
+        gap:10px;
         margin-top: 12px;
         margin-bottom: 6px;
         color: var(--muted);
         font-weight:700;
         font-size:14px;
+        text-align:center;
       }
       .agentPic{
         width:57px;
@@ -351,6 +387,27 @@
         position: relative;
         z-index: 1;
       }
+      .legalGlyphRow{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:26px;
+      margin-top: 14px;
+      padding-bottom: 8px;
+    }
+
+    .legalGlyphRow svg{
+      width:26px;
+      height:26px;
+      fill:none;
+      stroke:#7c4a12;          /* brown / legal */
+      stroke-width:1.5;
+      opacity:0.12;            /* key: very faint */
+    }
+    .glyphShield{
+      transform: scaleX(1.12);
+      transform-origin: center;
+    }
       .carrierTitle{
         color:#0f172a;
         font-weight:800;
@@ -593,9 +650,9 @@
 .suggestCategory {
   font-family: var(--font-authority);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 200;
   letter-spacing: 0.01em;
-  color: #64748b; /* slate-500 */
+  color: #7c4a12; /* legal brown */
 }
 
 /* Optional: slightly darker on hover for clarity */
@@ -603,6 +660,7 @@
   color: #475569; /* slate-600 */
 }
 </style>
+
 <script>
     
   window.dataLayer = window.dataLayer || [];
@@ -645,13 +703,19 @@
         </div>
 
         <div id="topLine" class="topLine">
-          Answer a few questions so we can route you to the right trucking insurance markets.
+          Answer a few questions so we can understand your issue.
         </div>
 
-        <div id="socialLine" class="socialLine" style="display:none;">
-          <span class="dot"></span>
-          <span id="socialText">Recently helped a trucking operator in Massachusetts.</span>
+      <div id="socialLine" class="socialLine" style="display:none;">
+        <span class="dot"></span>
+
+        <div class="stateGlyphWrap" aria-hidden="true">
+          <svg class="stateGlyph">
+            <use id="stateUse"></use>
+          </svg>
+          <span id="stateBadge" class="stateBadge"></span>
         </div>
+      </div>
 
         <h1 id="question" class="question">What’s your ZIP?</h1>
 
@@ -660,12 +724,21 @@
       </div>
 
       <div class="belowTile">
-        <div class="carrierTitle">Insurance carriers include</div>
-        <div class="carriers">
-          <img alt="The Hartford" src="https://static.wixstatic.com/media/430b26_dee7f56c00404ba5bfad46298ba8b24c~mv2.png" />
-          <img alt="Cover Whale" src="https://static.wixstatic.com/media/430b26_a665d64e4301401782acd10d30bc9600~mv2.png" />
-          <img alt="Nirvana" src="https://static.wixstatic.com/media/430b26_3eec5dcaaaae465ea6092bda467ec36c~mv2.png" />
-          <img alt="Progressive" src="https://static.wixstatic.com/media/430b26_65308353fd1743059698ea082d8cd8d2~mv2.png" />
+      <div class="legalGlyphRow" aria-hidden="true">
+          <!-- Lock -->
+          <svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg>
+
+          <!-- Shield -->
+          <svg class="glyphShield" viewBox="0 0 24 24">  <path d="M12 3l7 3v6c0 5-3.5 9-7 12-3.5-3-7-7-7-12V6l7-3z"/></svg>
+
+          <!-- Document -->
+          <svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/></svg>
+
+          <!-- Pen -->
+          <svg viewBox="0 0 24 24"><path d="M12 20l7-7-3-3-7 7-2 5 5-2z"/><path d="M16 6l2 2"/></svg>
+
+          <!-- Human -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
         </div>
 
         <div class="footerLinks">
@@ -677,17 +750,30 @@
       </div>
     </div>
 
+
     <script>
-      /* =========================
+  const STATE_NAME_TO_CODE = {
+    "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA",
+    "Colorado":"CO","Connecticut":"CT","Delaware":"DE","Florida":"FL","Georgia":"GA",
+    "Hawaii":"HI","Idaho":"ID","Illinois":"IL","Indiana":"IN","Iowa":"IA",
+    "Kansas":"KS","Kentucky":"KY","Louisiana":"LA","Maine":"ME","Maryland":"MD",
+    "Massachusetts":"MA","Michigan":"MI","Minnesota":"MN","Mississippi":"MS","Missouri":"MO",
+    "Montana":"MT","Nebraska":"NE","Nevada":"NV","New Hampshire":"NH","New Jersey":"NJ",
+    "New Mexico":"NM","New York":"NY","North Carolina":"NC","North Dakota":"ND","Ohio":"OH",
+    "Oklahoma":"OK","Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC",
+    "South Dakota":"SD","Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT",
+    "Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY",
+    "District of Columbia":"DC"
+  };
+  </script>
+    <script>
+            /* =========================
          CONFIG
       ========================= */
       const TURNSTILE_SITE_KEY = "0x4AAAAAACViAvM2dBR8ADjN"; // <-- replace
       const AGENT_PHOTO = "assets/agent.png";
 
-      // Will be updated after ZIP lookup
-      let SOCIAL_DEFAULT = "Recently helped a trucking operator in Massachusetts.";
-
-      // Will be loaded from /api/config (env var), but allow overrides
+           // Will be loaded from /api/config (env var), but allow overrides
       const runtime = {
         smsMode: "off", // "on" | "off"
       };
@@ -1161,25 +1247,48 @@ async function loadQuestionBank() {
         $("progressBar").style.width = `${pct}%`;
         $("progressPct").textContent = `${pct}%`;
       }
+    function setStateGlyph(stateName){
+      const useEl = document.getElementById("stateUse");
+      const badgeEl = document.getElementById("stateBadge");
+      if (!useEl || !badgeEl) return;
 
+      // map full state name -> 2-letter code
+      const CODE = STATE_NAME_TO_CODE[stateName] || "";
+      if (!CODE) {
+        badgeEl.textContent = "";
+        useEl.removeAttribute("href");
+        useEl.removeAttribute("xlink:href");
+        return;
+      }
+
+      badgeEl.textContent = CODE;
+
+      // Use both for Safari compatibility
+      const href = `/assets/us-states-sprite.svg#${CODE}`;
+      useEl.setAttribute("href", href);
+      useEl.setAttribute("xlink:href", href);
+    }
   function setHeaderForStep(step){
   $("question").textContent = step.question;
 
+  // Step 0: search
   if (step.key === "search") {
     $("topLine").style.display = "none";
     $("socialLine").style.display = "none";
     return;
   }
 
+  // ZIP step: keep helper text, and (if we already know the state) show the glyph too.
   if (step.key === "zip") {
     $("topLine").style.display = "block";
-    $("socialLine").style.display = "none";
+    $("socialLine").style.display = (state.zipState ? "flex" : "none");
     return;
   }
 
+  // All subsequent steps: show the state glyph *above the main question* once ZIP has been resolved.
   $("topLine").style.display = "none";
-  $("socialLine").style.display = "flex";
-  $("socialText").textContent = SOCIAL_DEFAULT;
+  $("socialLine").style.display = (step.showSocial && state.zipState) ? "flex" : "none";
+  // state glyph + badge are set during ZIP lookup
 }
 
       function pushHistory(idx){
@@ -1367,12 +1476,11 @@ async function transitionRender(step) {
           state.zip = z;
           state.zipState = await lookupZipState(z);
 
-          // Update social proof text for subsequent steps
-          if (state.zipState) {
-            SOCIAL_DEFAULT = `Recently helped a trucking operator in ${state.zipState}.`;
-          } else {
-            SOCIAL_DEFAULT = "Recently helped a trucking operator in Massachusetts.";
-          }
+        if (state.zipState) {
+        setStateGlyph(state.zipState);
+      } else {
+        setStateGlyph("");
+      }
 
           btn.disabled = false;
           btn.textContent = "Continue";
@@ -1824,12 +1932,11 @@ renderQuoteIdFooter(state.quoteId);
   if (hasValidZip) {
     state.zip = zipFromQs;
 
-    // Populate zipState + social proof text (same as ZIP step does)
     state.zipState = await lookupZipState(zipFromQs);
     if (state.zipState) {
-      SOCIAL_DEFAULT = `Recently helped a trucking operator in ${state.zipState}.`;
+      setStateGlyph(state.zipState);
     } else {
-      SOCIAL_DEFAULT = "Recently helped a trucking operator in Massachusetts.";
+      setStateGlyph("");
     }
 
     // Force start at "What type of trucking?" (step 1)
