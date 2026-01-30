@@ -373,6 +373,21 @@
         text-decoration:none;
       }
       .footerLinks a:hover{ text-decoration:underline; }
+
+      /* Swap transition (NO fade) */
+#content {
+  position: relative;
+  transition: transform 240ms cubic-bezier(.2,.9,.2,1);
+  will-change: transform;
+}
+
+#content.is-exiting {
+  transform: translateX(-18px);
+}
+
+#content.is-entering {
+  transform: translateX(18px);
+}
  
 /* ---------- Mobile polish ---------- */
 @media (max-width: 640px) {
@@ -978,27 +993,51 @@ async function loadQuestionBank() {
         history.replaceState({ idx }, "", url);
       }
 
-      function goTo(idx, { fromPop=false } = {}){
-        currentIdx = Math.max(0, Math.min(idx, steps.length - 1));
-        const step = steps[currentIdx];
+    function goTo(idx, { fromPop=false } = {}){
+  const c = $("content");
 
-        setProgress(step.pct);
-        setHeaderForStep(step);
-        setError("");
+  const nextIdx = Math.max(0, Math.min(idx, steps.length - 1));
+  const step = steps[nextIdx];
 
-        renderStep(step);
+  // If we're already mid-transition, just snap
+  if (c.__swapping) {
+    currentIdx = nextIdx;
+    setProgress(step.pct);
+    setHeaderForStep(step);
+    setError("");
+    renderStep(step);
+    if (!fromPop) pushHistory(currentIdx);
+    return;
+  }
 
-        if (!fromPop) pushHistory(currentIdx);
-      }
+  c.__swapping = true;
 
-      function next(){
-        if (currentIdx < steps.length - 1) goTo(currentIdx + 1);
-      }
+  // EXIT (slide left)
+  c.classList.remove("is-entering");
+  c.classList.add("is-exiting");
 
-      window.addEventListener("popstate", (e) => {
-        const idx = (e.state && typeof e.state.idx === "number") ? e.state.idx : 0;
-        goTo(idx, { fromPop:true });
-      });
+  // After exit motion, swap content offscreen right, then enter
+  setTimeout(() => {
+    currentIdx = nextIdx;
+
+    setProgress(step.pct);
+    setHeaderForStep(step);
+    setError("");
+    renderStep(step);
+
+    // Place the new content slightly to the right…
+    c.classList.remove("is-exiting");
+    c.classList.add("is-entering");
+
+    // …then slide it into place
+    requestAnimationFrame(() => {
+      c.classList.remove("is-entering");
+      c.__swapping = false;
+    });
+
+    if (!fromPop) pushHistory(currentIdx);
+  }, 180); // keep <= your 220ms CSS timing so it feels snappy
+}
 
       /* =========================
          TURNSTILE
