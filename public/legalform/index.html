@@ -443,92 +443,40 @@
     width: auto !important;
   }
 }
-#suggestBox::-webkit-scrollbar {
-  display: none; /* Chrome / Safari */
-}
+/* --- Suggest box: NEVER transparent --- */
 #suggestBox{
-  position: relative; /* ← add this line */
+  position: relative;
+  background: #fff;
 }
 
-#suggestBox{
-  transition: opacity .18s ease, transform .18s ease;
-  will-change: opacity, transform;
-}
-
-#suggestBox.isUpdating{
-  opacity: 1;          /* never see through to Continue */
-  transform: none;     /* no jog */
-  filter: none;
-}
-#suggestBox{
-  filter: none;
-}
-.suggestItem{
-  transition: opacity .14s ease, transform .14s ease;
-}
-#suggestBox.isUpdating .suggestItem{
-  opacity: .85;
-  transform: none;
-}
-#suggestBox{
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-top: none;
-}
-#suggestBox{
-  border-radius: 12px;
-}
-/* Make the fade overlay sit ABOVE the items */
-#suggestBox{
-  position: relative;           /* required for ::after positioning */
+#suggestScroll{
+  background: #fff;
 }
 
 #suggestBox .suggestItem{
-  position: relative;
-  z-index: 1;                   /* items below overlay */
+  background: #fff;
 }
 
-/* Solid base so nothing behind the dropdown shows through */
-#suggestBox::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:#fff;
-  z-index:0;
+/* If you want an update animation, move items but keep them opaque */
+#suggestBox.isUpdating .suggestItem{
+  opacity: 1;
+  transform: translateY(6px);
+  transition: transform .18s ease;
 }
 
-/* Fade overlay above the items */
+/* Optional: fade at bottom (always sits on top) */
 #suggestBox::after{
   content:"";
   position:absolute;
   left:0; right:0; bottom:0;
   height:44px;
   pointer-events:none;
-  z-index:5;
+  z-index: 5;
   background: linear-gradient(to bottom,
     rgba(255,255,255,0),
     rgba(255,255,255,1)
   );
 }
-
-/* Ensure items are above the base */
-#suggestBox .suggestItem{
-  position: relative;
-  z-index: 1;
-}
-
-/* During updates: keep items opaque, only shift them */
-#suggestBox.isUpdating .suggestItem{
-  opacity: 1;                 /* <-- critical */
-  transform: translateY(6px);
-}
-
-/* hard-force the container to never fade */
-#suggestBox{
-  background: #fff !important;
-  opacity: 1 !important;
-}
-
 </style>
 <script>
     
