@@ -186,8 +186,8 @@
         }
         .stateGlyphWrap{
           position: relative;
-          width: 40px;
-          height: 26px;
+          width: 74px;
+          height: 54px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -206,20 +206,24 @@
           stroke-width: 1.2;
           color: rgba(124,74,18,0.18);
         }
-
-        /* Two-letter badge on top */
-        .stateBadge{
-          position: absolute;
-          font-family: var(--font-ui);
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.06em;
-          color: #7c4a12;
-          background: rgba(255,255,255,0.85);
-          padding: 2px 5px;
-          border-radius: 6px;
-          line-height: 1;
+        .stateGlyph path{
+          fill: rgba(124,74,18,0.10);
+          stroke: rgba(124,74,18,0.35);
+          stroke-width: 1.2;
         }
+        /* Two-letter badge on top */
+       .stateBadge{
+        position:absolute;
+        font-family: var(--font-ui);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: #7c4a12;
+        background: transparent;              /* key change */
+        padding: 0;                           /* key change */
+        line-height: 1;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.9); /* keeps letters crisp on top of outline */
+}
 
       h1.question{
         text-align:center;
@@ -710,13 +714,12 @@
       <div id="socialLine" class="socialLine" style="display:none;">
         <span class="dot"></span>
 
-        <div id="stateGlyphWrap" class="stateGlyphWrap" aria-hidden="true">
-         <svg
-          class="stateGlyph"
-          viewBox="477 421 593.3779761904764 318.2870370370371"
-          preserveAspectRatio="xMidYMid meet" >
-          <use id="stateUse"></use>
-        </svg>
+      <div id="stateGlyphWrap" class="stateGlyphWrap" aria-hidden="true">
+          <svg class="stateGlyph"
+              viewBox="477 421 593.3779761904764 318.2870370370371"
+              preserveAspectRatio="xMidYMid meet">
+            <use id="stateUse"></use>
+          </svg>
           <span id="stateBadge" class="stateBadge"></span>
         </div>
       </div>
@@ -1278,11 +1281,11 @@ async function loadQuestionBank() {
 
 function setStateGlyph(stateVal){
   const wrap   = document.getElementById("stateGlyphWrap");
-  const useEl  = document.getElementById("stateUse");
+  const svg    = wrap?.querySelector("svg.stateGlyph");
   const codeEl = document.getElementById("stateBadge");
-  if(!wrap || !useEl || !codeEl) return;
+  if(!wrap || !svg || !codeEl) return;
 
-  // Accept either "New York" OR "NY"
+  // Accept "New York" OR "NY"
   const raw = String(stateVal || "").trim();
   const mapped = STATE_NAME_TO_CODE[raw] || raw;
   const code = String(mapped || "").toUpperCase();
@@ -1293,42 +1296,35 @@ function setStateGlyph(stateVal){
   }
 
   codeEl.textContent = code;
+  wrap.style.display = "inline-flex";
 
-  // Helper: set href in a way that works across browsers (incl. Safari)
-  const XLINK = "http://www.w3.org/1999/xlink";
-  const setUseHref = (href) => {
-    useEl.setAttribute("href", href);
-    useEl.setAttributeNS(XLINK, "xlink:href", href);
-  };
-
-  // 1) Start with external reference (some browsers allow it)
-  setUseHref(`assets/us-states-sprite.svg#${code}`);
-
-  // 2) Then load/inline the sprite and point to an ID that actually exists
   ensureStateSpriteLoaded().then(() => {
-    // Try a few common ID conventions
-    const candidates = [
-      code,                 // "NY"
-      code.toLowerCase(),   // "ny"
-      `US-${code}`,         // "US-NY"
-      `us-${code}`,         // "us-NY"
-      `us-${code.toLowerCase()}`, // "us-ny"
-    ];
-
-    const found = candidates.find(id => document.getElementById(id));
-    if (!found) {
-      // If the sprite loaded but we can't find an ID match, hide the outline
-      // (badge will still show)
-      // console.warn("[state-glyph] no symbol id match for:", code);
-      wrap.style.display = "inline-flex";
+    // Find the actual path inside the injected sprite SVG
+    const src = document.querySelector(`#usStatesSpriteInline svg #${CSS.escape(code)}`);
+    if (!src) {
+      console.warn("[state-glyph] missing id in sprite:", code);
+      svg.innerHTML = "";
       return;
     }
 
-    setUseHref(`#${found}`);
-    wrap.style.display = "inline-flex";
-  });
+    // Clone the path directly into the glyph svg (no <use>)
+    svg.innerHTML = "";
+    const node = src.cloneNode(true);
 
-  wrap.style.display = "inline-flex";
+    // Strip inline paint if present, so your CSS controls look
+    node.removeAttribute("style");
+    node.removeAttribute("fill");
+    node.removeAttribute("stroke");
+    node.removeAttribute("stroke-width");
+
+    svg.appendChild(node);
+
+    // Fit viewBox tightly to the shape so it actually fills the 40x26 box
+    const bb = node.getBBox();
+    const pad = 6;
+    svg.setAttribute("viewBox", `${bb.x - pad} ${bb.y - pad} ${bb.width + pad*2} ${bb.height + pad*2}`);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  });
 }
 
   function setHeaderForStep(step){
