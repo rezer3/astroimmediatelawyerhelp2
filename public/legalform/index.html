@@ -373,21 +373,6 @@
         text-decoration:none;
       }
       .footerLinks a:hover{ text-decoration:underline; }
-
-      /* Swap transition (NO fade) */
-#content {
-  position: relative;
-  transition: transform 240ms cubic-bezier(.2,.9,.2,1);
-  will-change: transform;
-}
-
-#content.is-exiting {
-  transform: translateX(-18px);
-}
-
-#content.is-entering {
-  transform: translateX(18px);
-}
  
 /* ---------- Mobile polish ---------- */
 @media (max-width: 640px) {
@@ -525,18 +510,7 @@
   opacity: 0;
   transform: translateY(6px);
 }
-/* While suggestions are updating, don't block clicks on the Continue button */
-#suggestBox.isUpdating{
-  pointer-events: none;     /* key fix: allows clicking through */
-  opacity: 1;               /* keep box solid */
-  background: #fff;         /* ensure no "see-through" feeling */
-}
 
-/* Keep items animating only (you already do this) */
-#suggestBox.isUpdating .suggestItem{
-  opacity: 0;
-  transform: translateY(6px);
-}
 </style>
 <script>
     
@@ -709,8 +683,7 @@ async function renderSearch(c){
 
 }
 
-document.getElementById("suggestScroll")
-  .addEventListener("scroll", updateFade, { passive:true });
+box.addEventListener("scroll", updateFade, { passive:true });
     function scoreMatch(q, text){
       if (!q) return -1;
       const t = norm(text);
@@ -1005,51 +978,27 @@ async function loadQuestionBank() {
         history.replaceState({ idx }, "", url);
       }
 
-    function goTo(idx, { fromPop=false } = {}){
-  const c = $("content");
+      function goTo(idx, { fromPop=false } = {}){
+        currentIdx = Math.max(0, Math.min(idx, steps.length - 1));
+        const step = steps[currentIdx];
 
-  const nextIdx = Math.max(0, Math.min(idx, steps.length - 1));
-  const step = steps[nextIdx];
+        setProgress(step.pct);
+        setHeaderForStep(step);
+        setError("");
 
-  // If we're already mid-transition, just snap
-  if (c.__swapping) {
-    currentIdx = nextIdx;
-    setProgress(step.pct);
-    setHeaderForStep(step);
-    setError("");
-    renderStep(step);
-    if (!fromPop) pushHistory(currentIdx);
-    return;
-  }
+        renderStep(step);
 
-  c.__swapping = true;
+        if (!fromPop) pushHistory(currentIdx);
+      }
 
-  // EXIT (slide left)
-  c.classList.remove("is-entering");
-  c.classList.add("is-exiting");
+      function next(){
+        if (currentIdx < steps.length - 1) goTo(currentIdx + 1);
+      }
 
-  // After exit motion, swap content offscreen right, then enter
-  setTimeout(() => {
-    currentIdx = nextIdx;
-
-    setProgress(step.pct);
-    setHeaderForStep(step);
-    setError("");
-    renderStep(step);
-
-    // Place the new content slightly to the right…
-    c.classList.remove("is-exiting");
-    c.classList.add("is-entering");
-
-    // …then slide it into place
-    requestAnimationFrame(() => {
-      c.classList.remove("is-entering");
-      c.__swapping = false;
-    });
-
-    if (!fromPop) pushHistory(currentIdx);
-  }, 180); // keep <= your 220ms CSS timing so it feels snappy
-}
+      window.addEventListener("popstate", (e) => {
+        const idx = (e.state && typeof e.state.idx === "number") ? e.state.idx : 0;
+        goTo(idx, { fromPop:true });
+      });
 
       /* =========================
          TURNSTILE
