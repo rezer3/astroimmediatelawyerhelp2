@@ -468,19 +468,6 @@
   transition: transform .18s ease;
 }
 
-/* Optional: fade at bottom (always sits on top) */
-#suggestBox::after{
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:0;
-  height:44px;
-  pointer-events:none;
-  z-index: 5;
-  background: linear-gradient(to bottom,
-    rgba(255,255,255,0),
-    rgba(255,255,255,1)
-  );
-}
 .ilfTopbar{
   position: sticky;
   top: 0;
@@ -539,10 +526,9 @@
   border-color: rgba(15,23,42,.22);
 }
 .ilfHeaderMeta{
-  font-size: 13px;
-  font-weight: 700;
-  color: #64748b; /* slate-500 */
-  white-space: nowrap;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6b7280;
 }
 
 .ilfSep{
@@ -566,6 +552,19 @@
     width: 100%;
     text-align: center;
   }
+}
+/* Suggestion: category / credential line */
+.suggestCategory {
+  font-family: var(--font-authority);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #64748b; /* slate-500 */
+}
+
+/* Optional: slightly darker on hover for clarity */
+.suggestItem:hover .suggestCategory {
+  color: #475569; /* slate-600 */
 }
 </style>
 <script>
@@ -782,12 +781,12 @@ return;
     const b = document.createElement("button");
     b.classList.add("suggestItem");
     b.type = "button";
-    b.innerHTML = `
-      <span style="font-weight:800;">${it.label}</span>
-      <div style="font-size:13px;font-weight:600;color:#94a3b8;margin-top:2px;">
-  ${it.parent}
-</div>
-    `;
+   b.innerHTML = `
+  <span class="suggestLabel">${it.label}</span>
+  <div class="suggestCategory">
+    ${it.parent}
+  </div>
+`;
     b.style.cssText = `
       width:100%;
       text-align:left;
@@ -1687,6 +1686,7 @@ renderQuoteIdFooter(state.quoteId);
   replaceHistory(idx);
   goTo(idx);
 })();
+
     </script>
     </body>
 </html>
