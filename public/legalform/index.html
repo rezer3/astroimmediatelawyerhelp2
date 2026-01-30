@@ -514,10 +514,16 @@
   will-change: opacity, transform;
 }
 
-/* During updates: items fade + slight lift */
+/* During updates: keep box opaque; only soften items */
 #suggestBox.isUpdating .suggestItem{
-  opacity: 0;
-  transform: translateY(6px);
+  opacity: 0.35;          /* was 0 */
+  transform: translateY(4px);
+}
+
+/* hard-force the container to never fade */
+#suggestBox{
+  background: #fff !important;
+  opacity: 1 !important;
 }
 
 </style>
