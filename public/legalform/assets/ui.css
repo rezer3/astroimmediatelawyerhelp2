@@ -61,7 +61,7 @@ button,
 /* Bottom line: authoritative */
 .suggestCategory{
   font-family: var(--font-authority);
-  font-size: 13px;
+  font-size: 14.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
   color: #64748b;
