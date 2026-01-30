@@ -475,7 +475,15 @@
   background: #f6f7fb;          /* matches your page bg */
   border-bottom: 1px solid rgba(17,24,39,.08);
 }
+.ilfHeaderRight{ gap: 10px; } /* slightly tighter */
 
+.ilfPhoneBadge{
+  height: 16px;
+  margin-left: -6px;     /* pulls it closer to the pill */
+  width: auto;
+  display: block;
+  opacity: .9;
+}
 .ilfTopbarInner{
   max-width: 1120px;
   margin: 0 auto;
@@ -508,6 +516,7 @@
 .ilfPhonePill{
   display: inline-flex;
   align-items: center;
+  gap: 8px;  
   justify-content: center;
   padding: 10px 14px;
   border-radius: 999px;
@@ -610,16 +619,21 @@
       <span class="ilfBrandName">ImmediateLawyerHelp</span><span class="ilfBrandDot">.com</span>
     </a>
 
-   <div class="ilfHeaderRight">
+<div class="ilfHeaderRight">
   <div class="ilfHeaderMeta">
     Across practice areas <span class="ilfSep">•</span> Routed by issue
   </div>
+<a class="ilfPhonePill" href="tel:+16178558328">
+  <img
+    class="ilfPhoneBadge"
+    src="assets/phone.png"
+    alt=""
+    aria-hidden="true" />
+  <span class="ilfPhoneNumber">1-617-855-8328</span>
+</a>
 
-  <a class="ilfPhonePill" href="tel:+16178558328">
-    1-617-855-8328
-  </a>
+ 
 </div>
-  </div>
 </header>
 
     <div class="wrap">
