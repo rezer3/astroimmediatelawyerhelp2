@@ -514,10 +514,10 @@
   will-change: opacity, transform;
 }
 
-/* During updates: keep box opaque; only soften items */
+/* During updates: keep items opaque, only shift them */
 #suggestBox.isUpdating .suggestItem{
-  opacity: 0.35;          /* was 0 */
-  transform: translateY(4px);
+  opacity: 1;                 /* <-- critical */
+  transform: translateY(6px);
 }
 
 /* hard-force the container to never fade */
