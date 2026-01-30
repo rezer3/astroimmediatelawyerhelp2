@@ -204,6 +204,7 @@
           fill: rgba(124,74,18,0.10);
           stroke: rgba(124,74,18,0.35);
           stroke-width: 1.2;
+          color: rgba(124,74,18,0.18);
         }
 
         /* Two-letter badge on top */
@@ -709,10 +710,13 @@
       <div id="socialLine" class="socialLine" style="display:none;">
         <span class="dot"></span>
 
-        <div class="stateGlyphWrap" aria-hidden="true">
-          <svg class="stateGlyph">
-            <use id="stateUse"></use>
-          </svg>
+        <div id="stateGlyphWrap" class="stateGlyphWrap" aria-hidden="true">
+         <svg
+          class="stateGlyph"
+          viewBox="477 421 593.3779761904764 318.2870370370371"
+          preserveAspectRatio="xMidYMid meet" >
+          <use id="stateUse"></use>
+        </svg>
           <span id="stateBadge" class="stateBadge"></span>
         </div>
       </div>
@@ -1247,27 +1251,86 @@ async function loadQuestionBank() {
         $("progressBar").style.width = `${pct}%`;
         $("progressPct").textContent = `${pct}%`;
       }
-    function setStateGlyph(stateName){
-      const useEl = document.getElementById("stateUse");
-      const badgeEl = document.getElementById("stateBadge");
-      if (!useEl || !badgeEl) return;
+      // --- State glyph sprite helper (robust across browsers / base href) ---
+  let __stateSpritePromise = null;
+  function ensureStateSpriteLoaded(){
+    if(__stateSpritePromise) return __stateSpritePromise;
+    __stateSpritePromise = (async () => {
+      if(document.getElementById("usStatesSpriteInline")) return;
+      const res = await fetch("assets/us-states-sprite.svg", { cache: "force-cache" });
+      if(!res.ok) throw new Error(`fetch assets/us-states-sprite.svg failed: ${res.status}`);
+      const txt = await res.text();
+      const wrap = document.createElement("div");
+      wrap.id = "usStatesSpriteInline";
+      wrap.style.position = "absolute";
+      wrap.style.width = "0";
+      wrap.style.height = "0";
+      wrap.style.overflow = "hidden";
+      wrap.style.pointerEvents = "none";
+      wrap.setAttribute("aria-hidden", "true");
+      wrap.innerHTML = txt;
+      document.body.appendChild(wrap);
+    })().catch((err) => {
+      console.warn("[state-glyph] sprite load failed:", err);
+    });
+    return __stateSpritePromise;
+  }
 
-      // map full state name -> 2-letter code
-      const CODE = STATE_NAME_TO_CODE[stateName] || "";
-      if (!CODE) {
-        badgeEl.textContent = "";
-        useEl.removeAttribute("href");
-        useEl.removeAttribute("xlink:href");
-        return;
-      }
+function setStateGlyph(stateVal){
+  const wrap   = document.getElementById("stateGlyphWrap");
+  const useEl  = document.getElementById("stateUse");
+  const codeEl = document.getElementById("stateBadge");
+  if(!wrap || !useEl || !codeEl) return;
 
-      badgeEl.textContent = CODE;
+  // Accept either "New York" OR "NY"
+  const raw = String(stateVal || "").trim();
+  const mapped = STATE_NAME_TO_CODE[raw] || raw;
+  const code = String(mapped || "").toUpperCase();
 
-      // Use both for Safari compatibility
-      const href = `/assets/us-states-sprite.svg#${CODE}`;
-      useEl.setAttribute("href", href);
-      useEl.setAttribute("xlink:href", href);
+  if(!/^[A-Z]{2}$/.test(code)){
+    wrap.style.display = "none";
+    return;
+  }
+
+  codeEl.textContent = code;
+
+  // Helper: set href in a way that works across browsers (incl. Safari)
+  const XLINK = "http://www.w3.org/1999/xlink";
+  const setUseHref = (href) => {
+    useEl.setAttribute("href", href);
+    useEl.setAttributeNS(XLINK, "xlink:href", href);
+  };
+
+  // 1) Start with external reference (some browsers allow it)
+  setUseHref(`assets/us-states-sprite.svg#${code}`);
+
+  // 2) Then load/inline the sprite and point to an ID that actually exists
+  ensureStateSpriteLoaded().then(() => {
+    // Try a few common ID conventions
+    const candidates = [
+      code,                 // "NY"
+      code.toLowerCase(),   // "ny"
+      `US-${code}`,         // "US-NY"
+      `us-${code}`,         // "us-NY"
+      `us-${code.toLowerCase()}`, // "us-ny"
+    ];
+
+    const found = candidates.find(id => document.getElementById(id));
+    if (!found) {
+      // If the sprite loaded but we can't find an ID match, hide the outline
+      // (badge will still show)
+      // console.warn("[state-glyph] no symbol id match for:", code);
+      wrap.style.display = "inline-flex";
+      return;
     }
+
+    setUseHref(`#${found}`);
+    wrap.style.display = "inline-flex";
+  });
+
+  wrap.style.display = "inline-flex";
+}
+
   function setHeaderForStep(step){
   $("question").textContent = step.question;
 
