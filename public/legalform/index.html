@@ -653,7 +653,8 @@ async function renderSearch(c){
 
 }
 
-box.addEventListener("scroll", updateFade, { passive:true });
+document.getElementById("suggestScroll")
+  .addEventListener("scroll", updateFade, { passive:true });
     function scoreMatch(q, text){
       if (!q) return -1;
       const t = norm(text);
@@ -957,30 +958,40 @@ async function transitionRender(step) {
 
   c.classList.add("isTransitioning");
 
-  // Animate OUT
+  // OUT
+  let outAnim = null;
   try {
-    await c.animate(
+    outAnim = c.animate(
       [
         { opacity: 1, transform: "translateY(0px) scale(1)" },
         { opacity: 0, transform: "translateY(10px) scale(0.995)" }
       ],
-      { duration: 140, easing: "ease", fill: "forwards" }
-    ).finished;
+      { duration: 140, easing: "ease", fill: "both" }
+    );
+    await outAnim.finished;
   } catch {}
+  try { outAnim && outAnim.cancel(); } catch {}
 
   // Swap content
   renderStep(step);
 
-  // Animate IN
+  // IN
+  let inAnim = null;
   try {
-    await c.animate(
+    inAnim = c.animate(
       [
         { opacity: 0, transform: "translateY(-6px) scale(0.998)" },
         { opacity: 1, transform: "translateY(0px) scale(1)" }
       ],
-      { duration: 180, easing: "ease", fill: "forwards" }
-    ).finished;
+      { duration: 180, easing: "ease", fill: "both" }
+    );
+    await inAnim.finished;
   } catch {}
+  try { inAnim && inAnim.cancel(); } catch {}
+
+  // IMPORTANT: guarantee the container is fully opaque afterward
+  c.style.opacity = "1";
+  c.style.transform = "none";
 
   c.classList.remove("isTransitioning");
 }
