@@ -6,7 +6,7 @@
 
 /* ---- Font tokens ---- */
 :root {
-  --font-authority: "IBM Plex Serif", serif;
+  --font-authority: "Source Sans 3", system-ui, sans-serif;
   --font-ui: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
