@@ -886,7 +886,7 @@ let PRACTICE_AREAS = [];
 
 async function loadPracticeAreas() {
   if (PRACTICE_AREAS.length) return PRACTICE_AREAS;
-  const res = await fetch("/practice-areas.json", { cache: "no-store" });
+  const res = await fetch("practice-areas.json", { cache: "no-store" });
   const data = await res.json();
   PRACTICE_AREAS = Array.isArray(data?.categories) ? data.categories : [];
   return PRACTICE_AREAS;
@@ -911,7 +911,7 @@ let QUESTION_BANK = null;
 
 async function loadQuestionBank() {
   if (QUESTION_BANK) return QUESTION_BANK;
-  const res = await fetch("/question-bank.json", { cache: "no-store" });
+  const res = await fetch("question-bank.json", { cache: "no-store" });
   QUESTION_BANK = await res.json();
   return QUESTION_BANK;
 }
