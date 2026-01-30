@@ -177,54 +177,19 @@
         font-size:14px;
         margin: 0 0 12px;
       }
+      .stateStatusText{
+        font-weight: 700;
+        font-size: 13.5px;
+        color: #64748b; /* muted slate */
+        white-space: nowrap;
+      }
       .dot{
         width:9px;
         height:9px;
         border-radius:999px;
-        background: var(--progress);
-        box-shadow: 0 0 0 4px var(--progressGlow);
-        }
-        .stateGlyphWrap{
-          position: relative;
-          width: 74px;
-          height: 54px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        /* Faint state outline */
-        .stateGlyph{
-          width: 100%;
-          height: 100%;
-          display:block;
-
-          /* Most SVG state sprites are *filled* shapes, not stroked outlines.
-             So we render a very faint fill + a light stroke. */
-          fill: rgba(124,74,18,0.10);
-          stroke: rgba(124,74,18,0.35);
-          stroke-width: 1.2;
-          color: rgba(124,74,18,0.18);
-        }
-        .stateGlyph path{
-          fill: rgba(124,74,18,0.10);
-          stroke: rgba(124,74,18,0.35);
-          stroke-width: 1.2;
-        }
-        /* Two-letter badge on top */
-       .stateBadge{
-        position:absolute;
-        font-family: var(--font-ui);
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        color: #7c4a12;
-        background: transparent;              /* key change */
-        padding: 0;                           /* key change */
-        line-height: 1;
-        text-shadow: 0 1px 0 rgba(255,255,255,0.9); /* keeps letters crisp on top of outline */
-}
-
+        background:  #16a34a;
+        box-shadow: 0 0 0 4px rgba(22,163,74,0.15); /* subtle halo */
+       }
       h1.question{
         text-align:center;
         margin: 6px 0 18px;
@@ -711,17 +676,9 @@
           Answer a few questions so we can understand your issue.
         </div>
 
-      <div id="socialLine" class="socialLine" style="display:none;">
+        <div id="socialLine" class="socialLine" style="display:none;">
         <span class="dot"></span>
-
-      <div id="stateGlyphWrap" class="stateGlyphWrap" aria-hidden="true">
-          <svg class="stateGlyph"
-              viewBox="477 421 593.3779761904764 318.2870370370371"
-              preserveAspectRatio="xMidYMid meet">
-            <use id="stateUse"></use>
-          </svg>
-          <span id="stateBadge" class="stateBadge"></span>
-        </div>
+        <span id="stateStatusText" class="stateStatusText"></span>
       </div>
 
         <h1 id="question" class="question">What’s your ZIP?</h1>
@@ -757,22 +714,6 @@
       </div>
     </div>
 
-
-    <script>
-  const STATE_NAME_TO_CODE = {
-    "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA",
-    "Colorado":"CO","Connecticut":"CT","Delaware":"DE","Florida":"FL","Georgia":"GA",
-    "Hawaii":"HI","Idaho":"ID","Illinois":"IL","Indiana":"IN","Iowa":"IA",
-    "Kansas":"KS","Kentucky":"KY","Louisiana":"LA","Maine":"ME","Maryland":"MD",
-    "Massachusetts":"MA","Michigan":"MI","Minnesota":"MN","Mississippi":"MS","Missouri":"MO",
-    "Montana":"MT","Nebraska":"NE","Nevada":"NV","New Hampshire":"NH","New Jersey":"NJ",
-    "New Mexico":"NM","New York":"NY","North Carolina":"NC","North Dakota":"ND","Ohio":"OH",
-    "Oklahoma":"OK","Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC",
-    "South Dakota":"SD","Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT",
-    "Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY",
-    "District of Columbia":"DC"
-  };
-  </script>
     <script>
             /* =========================
          CONFIG
@@ -1256,76 +1197,6 @@ async function loadQuestionBank() {
       }
       // --- State glyph sprite helper (robust across browsers / base href) ---
   let __stateSpritePromise = null;
-  function ensureStateSpriteLoaded(){
-    if(__stateSpritePromise) return __stateSpritePromise;
-    __stateSpritePromise = (async () => {
-      if(document.getElementById("usStatesSpriteInline")) return;
-      const res = await fetch("assets/us-states-sprite.svg", { cache: "force-cache" });
-      if(!res.ok) throw new Error(`fetch assets/us-states-sprite.svg failed: ${res.status}`);
-      const txt = await res.text();
-      const wrap = document.createElement("div");
-      wrap.id = "usStatesSpriteInline";
-      wrap.style.position = "absolute";
-      wrap.style.width = "0";
-      wrap.style.height = "0";
-      wrap.style.overflow = "hidden";
-      wrap.style.pointerEvents = "none";
-      wrap.setAttribute("aria-hidden", "true");
-      wrap.innerHTML = txt;
-      document.body.appendChild(wrap);
-    })().catch((err) => {
-      console.warn("[state-glyph] sprite load failed:", err);
-    });
-    return __stateSpritePromise;
-  }
-
-function setStateGlyph(stateVal){
-  const wrap   = document.getElementById("stateGlyphWrap");
-  const svg    = wrap?.querySelector("svg.stateGlyph");
-  const codeEl = document.getElementById("stateBadge");
-  if(!wrap || !svg || !codeEl) return;
-
-  // Accept "New York" OR "NY"
-  const raw = String(stateVal || "").trim();
-  const mapped = STATE_NAME_TO_CODE[raw] || raw;
-  const code = String(mapped || "").toUpperCase();
-
-  if(!/^[A-Z]{2}$/.test(code)){
-    wrap.style.display = "none";
-    return;
-  }
-
-  codeEl.textContent = code;
-  wrap.style.display = "inline-flex";
-
-  ensureStateSpriteLoaded().then(() => {
-    // Find the actual path inside the injected sprite SVG
-    const src = document.querySelector(`#usStatesSpriteInline svg #${CSS.escape(code)}`);
-    if (!src) {
-      console.warn("[state-glyph] missing id in sprite:", code);
-      svg.innerHTML = "";
-      return;
-    }
-
-    // Clone the path directly into the glyph svg (no <use>)
-    svg.innerHTML = "";
-    const node = src.cloneNode(true);
-
-    // Strip inline paint if present, so your CSS controls look
-    node.removeAttribute("style");
-    node.removeAttribute("fill");
-    node.removeAttribute("stroke");
-    node.removeAttribute("stroke-width");
-
-    svg.appendChild(node);
-
-    // Fit viewBox tightly to the shape so it actually fills the 40x26 box
-    const bb = node.getBBox();
-    const pad = 6;
-    svg.setAttribute("viewBox", `${bb.x - pad} ${bb.y - pad} ${bb.width + pad*2} ${bb.height + pad*2}`);
-    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-  });
-}
 
   function setHeaderForStep(step){
   $("question").textContent = step.question;
@@ -1534,14 +1405,11 @@ async function transitionRender(step) {
 
           state.zip = z;
           state.zipState = await lookupZipState(z);
-
-        if (state.zipState) {
-        setStateGlyph(state.zipState);
-      } else {
-        setStateGlyph("");
-      }
-
-          btn.disabled = false;
+              const t = document.getElementById("stateStatusText");
+            if (t && state.zipState) {
+              t.textContent = `Currently handling requests in ${state.zipState}.`;
+            }
+              btn.disabled = false;
           btn.textContent = "Continue";
 
           next();
@@ -1991,14 +1859,7 @@ renderQuoteIdFooter(state.quoteId);
   if (hasValidZip) {
     state.zip = zipFromQs;
 
-    state.zipState = await lookupZipState(zipFromQs);
-    if (state.zipState) {
-      setStateGlyph(state.zipState);
-    } else {
-      setStateGlyph("");
-    }
-
-    // Force start at "What type of trucking?" (step 1)
+     // Force start at "What type of trucking?" (step 1)
     u.searchParams.set("step", "1");
     history.replaceState({ idx: 1 }, "", u.toString());
     replaceHistory(1);
