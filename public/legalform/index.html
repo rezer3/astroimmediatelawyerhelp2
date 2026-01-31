@@ -1035,7 +1035,7 @@ input.addEventListener("input", () => {
     }, 170);
   }, 300);
 });
-    function onContinue(){
+    async function onContinue(){
       const raw = input.value.trim();
       if (!raw) return setError("Type what you need help with.");
 
@@ -1048,6 +1048,9 @@ input.addEventListener("input", () => {
         state.practiceAreaLabel = chosen.label;
       }
       state.intentText = raw;
+
+      // ensure QB steps are loaded even without a clicked suggestion
+      await setQuestionsForPracticeArea(state.practiceAreaKey);
 
       next(); // goes to ZIP step
     }
@@ -1101,6 +1104,9 @@ input.addEventListener("input", () => {
   turnstileToken: null,
   intentText: "",
   practiceAreaKey: "",
+  practiceAreaLabel: "",
+  answers: null,
+  qbSteps: null,
   quoteId: "",
   // used to render the inline Thank You step after submit
   thanksMode: "" // "sms" | "nosms"
@@ -1129,6 +1135,7 @@ async function setQuestionsForPracticeArea(practiceAreaKey) {
 
   state.practiceAreaKey = practiceAreaKey;
   state.qbSteps = [steps2[0], steps2[1]];
+  state.answers = {}; // reset QB answers for the new category
 }
 
 let QUESTION_BANK = null;
@@ -1764,6 +1771,14 @@ if (smsIntent) {
       lastname: state.lastName || "",
       email: state.email || "",
       phone: v.d10,
+
+      // Intake context
+      intent_text: state.intentText || "",
+      practice_area_key: state.practiceAreaKey || "",
+      practice_area_label: state.practiceAreaLabel || "",
+
+      // Question bank answers (2-step)
+      qb_answers: state.answers || {},
 
       phone_verified: true,
       phone_line_type: String(j.lineType || "").trim(),
