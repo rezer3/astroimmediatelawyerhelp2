@@ -378,26 +378,7 @@
       transform: scaleX(1.12);
       transform-origin: center;
     }
-      .carrierTitle{
-        color:#0f172a;
-        font-weight:800;
-        font-size:13px;
-        margin-bottom: 10px;
-      }
-      .carriers{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        flex-wrap:wrap;
-        gap:22px;
-        padding-bottom: 10px;
-      }
-      .carriers img{
-        height: 26px;
-        width:auto;
-        opacity: .95;
-      }
-      .footerLinks{
+       .footerLinks{
         margin-top: 10px;
         padding-top: 12px;
         border-top: 1px solid rgba(15,23,42,0.08);
@@ -460,18 +441,6 @@
     padding: 14px !important;
     font-size: 14px !important;
     line-height: 1.4 !important;
-  }
-
-  /* carrier logos wrap cleanly */
-  .logos, .carrier-logos {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 14px !important;
-  }
-  .logos img, .carrier-logos img {
-    height: 18px !important;
-    width: auto !important;
   }
 }
 /* --- Suggest box: NEVER transparent --- */
@@ -1122,8 +1091,6 @@ input.addEventListener("input", () => {
       const state = {
   zip: "",
   zipState: "",
-  truckingType: "",
-  insuranceStatus: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -1177,6 +1144,7 @@ async function loadQuestionBank() {
   { key: "name", pct: 75, question: "What is your name?", agent: "Someone may reach out to help with next steps.", showSocial:true },
   { key: "email", pct: 85, question: "What’s your email?", agent: "We use email to share options and follow up. No Spam.", showSocial:true },
   { key: "phone", pct: 95, question: "What is your phone number?", agent: "Your information is secure.", showSocial:true }
+  
 ];
 
       let currentIdx = 0;
@@ -1482,46 +1450,7 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
   });
 }
 
-      function renderTruckingType(c){
-        const grid = document.createElement("div");
-        grid.className = "choiceGrid";
-        grid.innerHTML = `
-          <button class="choiceBtn" type="button" data-val="Owner Operator">Owner Operator</button>
-          <button class="choiceBtn" type="button" data-val="Small Fleet">Small Fleet</button>
-          <button class="choiceBtn" type="button" data-val="New Venture">New Venture</button>
-          <button class="choiceBtn" type="button" data-val="Other">Other</button>
-        `;
-        c.appendChild(grid);
-        c.appendChild(renderAgentLine(steps[currentIdx].agent));
-
-        grid.querySelectorAll("button").forEach((b) => {
-          b.addEventListener("click", () => {
-            state.truckingType = b.getAttribute("data-val") || "";
-            next();
-          });
-        });
-      }
-
-      function renderInsuranceStatus(c){
-        const grid = document.createElement("div");
-        grid.className = "choiceGrid";
-        grid.innerHTML = `
-          <button class="choiceBtn" type="button" data-val="Yes">Yes</button>
-          <button class="choiceBtn" type="button" data-val="No">No</button>
-          <button class="choiceBtn" type="button" data-val="Lapsed / Cancelled">Lapsed / Cancelled</button>
-          <button class="choiceBtn" type="button" data-val="Not sure">Not sure</button>
-        `;
-        c.appendChild(grid);
-        c.appendChild(renderAgentLine(steps[currentIdx].agent));
-
-        grid.querySelectorAll("button").forEach((b) => {
-          b.addEventListener("click", () => {
-            state.insuranceStatus = b.getAttribute("data-val") || "";
-            next();
-          });
-        });
-      }
-
+    
       function renderName(c){
         const inputWrap = document.createElement("div");
         inputWrap.className = "inputWrap";
@@ -1751,12 +1680,10 @@ if (smsIntent) {
       
 
     const leadPayload = {
-      funnel: "legalform",
+      funnel: "ilh_legalform",
       quote_id: state.quoteId || "",
       zip: state.zip || "",
       state: state.zipState || "",
-      trucking_type: state.truckingType || "",
-      insured: state.insuranceStatus || "",
       firstname: state.firstName || "",
       lastname: state.lastName || "",
       email: state.email || "",
@@ -1772,7 +1699,7 @@ if (smsIntent) {
       sms_error: "",
 
       source_url: window.location.href,
-      contact_source: "legalform",
+      contact_source: "ilh_legalform",
     };
 
     try {
@@ -1814,7 +1741,7 @@ window.location.href = smsWasSent
       }
 
 
-     const QUOTE_ID_KEY = "legalform_file_id";
+     const QUOTE_ID_KEY = "ilh_legalform_file_id";
 
 function generateQuoteId(){
   const d = new Date();
@@ -1859,7 +1786,6 @@ renderQuoteIdFooter(state.quoteId);
   if (hasValidZip) {
     state.zip = zipFromQs;
 
-     // Force start at "What type of trucking?" (step 1)
     u.searchParams.set("step", "1");
     history.replaceState({ idx: 1 }, "", u.toString());
     replaceHistory(1);
