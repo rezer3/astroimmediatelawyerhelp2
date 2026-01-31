@@ -1098,9 +1098,10 @@ input.addEventListener("input", () => {
   turnstileToken: null,
   intentText: "",
   practiceAreaKey: "",
-  practiceAreaLabel: "",
-  quoteId: "" 
-};
+  quoteId: "",
+  // used to render the inline Thank You step after submit
+  thanksMode: "" // "sms" | "nosms"
+      };
 
 let PRACTICE_AREAS = [];
 
@@ -1143,9 +1144,9 @@ async function loadQuestionBank() {
   { key: "qb2", pct: 50, question: "", agent: "Almost done.", showSocial:true },
   { key: "name", pct: 75, question: "What is your name?", agent: "Someone may reach out to help with next steps.", showSocial:true },
   { key: "email", pct: 85, question: "What’s your email?", agent: "We use email to share options and follow up. No Spam.", showSocial:true },
-  { key: "phone", pct: 95, question: "What is your phone number?", agent: "Your information is secure.", showSocial:true }
-  
-];
+  { key: "phone", pct: 95, question: "What is your phone number?", agent: "Your information is secure.", showSocial:true },
+  { key: "thanks", pct: 100, question: "Thanks — we got it.", agent: "", showSocial:false }
+  ];
 
       let currentIdx = 0;
       let turnstileWidgetId = null;
@@ -1175,7 +1176,12 @@ async function loadQuestionBank() {
     $("socialLine").style.display = "none";
     return;
   }
-
+        // Thank you: hide helper lines
+      if (step.key === "thanks") {
+      $("topLine").style.display = "none";
+      $("socialLine").style.display = "none";
+      return;
+      }
   // ZIP step: keep helper text, and (if we already know the state) show the glyph too.
   if (step.key === "zip") {
     $("topLine").style.display = "block";
@@ -1329,6 +1335,7 @@ async function transitionRender(step) {
         if (step.key === "name") return renderName(c);
         if (step.key === "email") return renderEmail(c);
         if (step.key === "phone") return renderPhone(c);
+        if (step.key === "thanks") return renderThanks(c);
       }
 
       function renderAgentLine(text){
@@ -1340,6 +1347,37 @@ async function transitionRender(step) {
         `;
         return wrap;
       }
+      function renderThanks(c){
+ // keep it simple: reuse existing layout + styles
+ const box = document.createElement("div");
+ box.style.cssText = `width:min(var(--inputW),100%); margin:0 auto; text-align:center;`;
+ 
+  const qid = state.quoteId || "";
+   const isSms = (state.thanksMode === "sms");
+ 
+ const headline = isSms ? "Thanks — check your phone." : "Thanks — we’ll be in touch.";
+ const msg = isSms
+      ? "We’re sending your link now. If you don’t see it in about a minute, tap Call."
+    : "Someone will reach out shortly. If you’d like, tap Call to speak now.";
+    
+      // update big header text
+    $("question").textContent = headline;
+    
+      box.innerHTML = `
+      <p style="margin:0; color:var(--muted); font-weight:700; line-height:1.45;">${escapeHtml(msg)}</p>
+    <div style="margin-top:14px; color:#94a3b8; font-size:12px; font-weight:800;">
+      ${qid ? `Your Reference ID: ${escapeHtml(qid)}` : ``}
+    </div>
+      <div class="btnRow" style="margin-top:16px;">
+      <a class="btn" href="tel:+16178558328" style="text-decoration:none;">Call 1-617-855-8328</a>
+    </div>
+    <p style="margin:14px 0 0; color:#64748b; font-size:13px; font-weight:650; line-height:1.45;">
+      Message and data rates may apply for SMS. You can also call or look forward to someone reaching out soon.
+    </p>
+    `;
+    c.appendChild(box);
+      }
+
 
       function renderZip(c){
         const inputWrap = document.createElement("div");
@@ -1716,10 +1754,18 @@ if (smsIntent) {
       return setError("Lead submit failed.");
     }
 
-const qid = encodeURIComponent(state.quoteId || "");
-window.location.href = smsWasSent
-  ? `/get-quote/thanks.html?m=sms&qid=${qid}`
-  : `/get-quote/thanks.html?qid=${qid}`;
+    // Inline Thank You step (no redirect)
+ 
+      state.thanksMode = smsWasSent ? "sms" : "nosms";
+      const thanksIdx = steps.findIndex(s => s.key === "thanks");
+      if (thanksIdx >= 0) {
+      currentIdx = thanksIdx;
+      replaceHistory(thanksIdx);   // <-- key line
+      setProgress(100);
+      setHeaderForStep(steps[thanksIdx]);
+      transitionRender(steps[thanksIdx]);
+      }
+
   }
 
   btn.addEventListener("click", handleFinal);
