@@ -1609,7 +1609,7 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
       type="button"
       disabled
     >
-      Request My Options
+      Get Help With My Case
     </button>
   `;
   c.appendChild(btnRow);
@@ -1672,20 +1672,20 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
       box.innerHTML = `
         <div class="consentTitle">Consent &amp; Authorization</div>
         <p class="consentText">
-          By clicking the "Get Link On Phone" button, I provide my written consent to agents or businesses to contact me for marketing/telemarketing purposes at the number I have provided above, using live operators, automated technology, artificial and/or AI generated voice or pre-recorded messages, SMS/MMS text messages, and/or emails, if applicable, even if I have previously registered the provided number on a company and/or any Federal or State Do Not Call Registry. I understand that my consent is not a condition of purchasing goods or services. I acknowledge that to be connected with product sellers that can fit my needs without providing this consent, I can call 813-761-8881.
+          By clicking the "Get Link On Phone" button, I provide my written consent to agents or businesses to contact me for marketing/telemarketing purposes at the number I have provided above, using live operators, automated technology, artificial and/or AI generated voice or pre-recorded messages, SMS/MMS text messages, and/or emails, if applicable, even if I have previously registered the provided number on a company and/or any Federal or State Do Not Call Registry. I understand that my consent is not a condition of purchasing goods or services. I acknowledge that to be connected with product sellers that can fit my needs without providing this consent, I can call 617-855-8328.
         </p>
       `;
       return;
     }
 
     // mode === "off"
-    btn.textContent = "Request My Options";
+    btn.textContent = "Get Help With My Case";
     shortLine.textContent =
-      'By clicking the "Request My Options" button, I provide my electronic signature, agree to the below terms and being contacted for marketing purposes. MSG & Data rates may apply. Frequency may vary. Reply HELP for help; STOP to opt-out.';
+      'By clicking the "Get Help With My Case" button, I provide my electronic signature, agree to the below terms and being contacted for marketing purposes. MSG & Data rates may apply. Frequency may vary. Reply HELP for help; STOP to opt-out.';
     box.innerHTML = `
       <div class="consentTitle">Consent &amp; Authorization</div>
       <p class="consentText">
-        By clicking "Request My Options", I provide my written consent to agents or businesses to contact me for marketing/telemarketing purposes at the number I have provided above, using live operators, automated technology, artificial and/or AI generated voice or pre-recorded messages, and/or emails, if applicable, even if I have previously registered the provided number on a company and/or any Federal or State Do Not Call Registry. I understand that my consent is not a condition of purchasing goods or services. I acknowledge that to be connected with product sellers that can fit my needs without providing this consent, I can call 813-761-8881.
+        By clicking “Get Help With My Case,” I provide my written consent to be contacted by legal assistance providers or their representatives regarding my request, at the phone number I provided above. Contact may be made using live operators, automated technology, artificial and/or AI-generated voice, pre-recorded messages, and/or email, if applicable, even if my number is listed on a federal or state Do Not Call registry. I understand that my consent is not required to obtain information or assistance, and that I may choose to explore my options without providing this consent by calling 617-855-8328.
       </p>
     `;
   }
@@ -1840,7 +1840,7 @@ function getOrCreateQuoteId(){
 
 function renderQuoteIdFooter(qid){
   const el = document.getElementById("quoteIdFooter");
-  if (el) el.textContent = `Quote ID: ${qid}`;
+  if (el) el.textContent = `Your Reference ID: ${qid}`;
 } 
       /* =========================
          INIT
