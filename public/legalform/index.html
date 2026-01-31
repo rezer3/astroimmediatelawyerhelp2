@@ -927,20 +927,22 @@ document.getElementById("suggestScroll")
 
 function renderSuggestions(items){
   const scrollEl = document.getElementById("suggestScroll");
-scrollEl.innerHTML = "";
-if (!items.length) {
-  // If user is typing, keep the box open and show a calm placeholder.
-  // Only truly hide when the input is empty.
-  const q = norm(input.value);
-  if (!q.length) {
-    box.style.display = "none";
-        return;
+  scrollEl.innerHTML = "";
+
+  if (!items.length) {
+    const q = norm(input.value);
+    if (!q.length) {
+      box.style.display = "none";
+      return;
+    }
+    // keep box open, empty
+    box.style.display = "block";
+    requestAnimationFrame(updateFade);
+    return;
   }
 
- box.style.display = "none";
-return;
-}
   box.style.display = "block";
+  // render items...
 
   for (const it of items){
     const b = document.createElement("button");
@@ -974,6 +976,7 @@ return;
 async function pick(it){
   state.intentText = input.value.trim();
   state.practiceAreaLabel = it.label;
+  state.practiceAreaKey = it.key;
 
   await setQuestionsForPracticeArea(it.key);
 
@@ -1596,6 +1599,17 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
   const phoneInput = $("phoneInput");
   phoneInput.focus();
 
+   function setSubmitting(isSubmitting, label) {
+  btn.dataset.prevText = btn.dataset.prevText || btn.textContent;
+  btn.disabled = !!isSubmitting;
+
+  if (isSubmitting) {
+    btn.textContent = label || "Submitting…";
+  } else {
+    btn.textContent = btn.dataset.prevText || "Request My Options";
+  }
+}
+
   function parseUSPhone(raw) {
     const lib = window.libphonenumber;
     if (!lib || typeof lib.parsePhoneNumberFromString !== "function") return null;
@@ -1634,6 +1648,7 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
 
     if (mode === "on") {
       btn.textContent = "Get Link On Phone";
+      btn.dataset.prevText = btn.textContent;
       shortLine.textContent =
         'By clicking the "Get Link On Phone" button, I provide my electronic signature, agree to the below terms and being contacted for marketing purposes. MSG & Data rates may apply. Frequency may vary. Reply HELP for help; STOP to opt-out.';
       box.innerHTML = `
@@ -1647,6 +1662,7 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
 
     // mode === "off"
     btn.textContent = "Get Help With My Case";
+    btn.dataset.prevText = btn.textContent;
     shortLine.textContent =
       'By clicking the "Get Help With My Case" button, I provide my electronic signature, agree to the below terms and being contacted for marketing purposes. MSG & Data rates may apply. Frequency may vary. Reply HELP for help; STOP to opt-out.';
     box.innerHTML = `
@@ -1659,6 +1675,7 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
 
   // enable/disable button based on local phone validity only
   function refreshButtonState(){
+    if (btn.dataset.submitting === "1") return;
     const v = validateLocal();
     btn.disabled = !v.ok;
     if (v.ok) setError("");
@@ -1670,15 +1687,31 @@ function renderQuestionBankStep(c, qbIndex /* 0 or 1 */){
   });
 
   phoneInput.addEventListener("keydown", (e)=>{
-    if (e.key === "Enter") btn.click();
+   if (e.key === "Enter") {
+if (btn.dataset.submitting === "1") return;
+     btn.click();
+   }
   });
 
   async function handleFinal(){
+      // Prevent double submit
+      if (btn.dataset.submitting === "1") return;
+      btn.dataset.submitting = "1";
+      setSubmitting(true, "Submitting…");
+      setError("");
+
     const v = validateLocal();
-    if (!v.ok) return setError(v.msg);
+    if (!v.ok) {
+    setSubmitting(false);
+    btn.dataset.submitting = "0";
+    return setError(v.msg);
+    }
+
 
     // Turnstile is required only at submit time
     if (!state.turnstileToken) {
+      setSubmitting(false);
+      btn.dataset.submitting = "0";
       return setError("Please complete the verification.");
     }
 
@@ -1702,6 +1735,9 @@ if (smsIntent) {
     j = await res.json().catch(() => null);
 
     if (!res.ok || !j || j.ok !== true) {
+      setSubmitting(false);
+      btn.dataset.submitting = "0";
+
       const err = String(j?.error || "");
       if (err.toLowerCase().includes("turnstile")) {
         return setError("Please complete the verification.");
@@ -1709,6 +1745,8 @@ if (smsIntent) {
       return setError("Enter valid phone number.");
     }
   } catch {
+      setSubmitting(false);
+      btn.dataset.submitting = "0";
     return setError("Enter valid phone number.");
   }
 }
@@ -1748,11 +1786,18 @@ if (smsIntent) {
       });
 
       if (!leadRes.ok) {
+      setSubmitting(false);
+      btn.dataset.submitting = "0";
         return setError("Lead submit failed.");
       }
     } catch {
+      setSubmitting(false);
+      btn.dataset.submitting = "0";
       return setError("Lead submit failed.");
     }
+    // success path: keep disabled to prevent resubmit
+    setSubmitting(true, "Submitted");
+    // then proceed to your Thank You step/navigation as you already do
 
     // Inline Thank You step (no redirect)
  
@@ -1799,7 +1844,7 @@ function generateQuoteId(){
   const n = crypto.getRandomValues(new Uint32Array(1))[0];
   const rand = (n % (36 ** 6)).toString(36).toUpperCase().padStart(6, "0");
 
-  return `Q-${ymd}-${rand}`;
+  return `L-${ymd}-${rand}`;
 }
 
 function getOrCreateQuoteId(){
